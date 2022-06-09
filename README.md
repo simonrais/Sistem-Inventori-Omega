@@ -1,13 +1,6 @@
 ## Admin credentials
 **username:** admin
 **password:** admin123
-
-## Tech Stack
-
-**Client:** [ruangAdmin](https://github.com/indrijunanda/RuangAdmin), Bootstrap, Jquery, filePond
-
-**Server:** PHP 7.4.x, Laravel 8.x
-
   
 ## Menu
 
@@ -25,9 +18,3 @@
 composer install
 cp .env.example .env <-- edit db config
 php artisan install
-```
-
-## Running Tests
-To run tests, run the following command
-
-php artisan test
