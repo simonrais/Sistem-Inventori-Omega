@@ -23,15 +23,15 @@
 				<button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah Barang</button>
 			</div>
 		</x-slot>
-
-		<table class="table table-hover mb-3" id="daftar">
+		<div class="table-responsive">
+		<table class="display table table-striped table-hover" id="daftar">
 			<thead>
 				<tr>
 					<th>Kode Barang</th>
 					<th>Nama Barang</th>
 					<th>Jumlah Barang</th>
 					<th>Kondisi Barang</th>
-					<th></th>
+					<th style="width: 10%">Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -60,6 +60,7 @@
 				
 			</tbody>
 		</table>
+		</div>
 	</x-card>
 
 	{{-- add model --}}
@@ -120,7 +121,7 @@
 	{{-- edit model --}}
 	<x-modal>
 		<x-slot name="title">
-			<h6 class="m-0 font-weight-bold text-primary">Edit Gudang</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Edit Barang</h6>
 		</x-slot>
 		<x-slot name="id">edit</x-slot>
 
@@ -155,7 +156,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="">Jumlah Barang</label>
-						<input type="number" class="form-control" name="jumlah" required="">
+						<input type="number" class="form-control" name="jumlah" readonly disabled>
 					</div>
 				</div>
 				<div class="col-md-6">

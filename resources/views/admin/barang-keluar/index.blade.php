@@ -11,6 +11,7 @@
 			<button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah Keluaran</button>
 		</x-slot>
 
+		<div class="table-responsive">
 		<table class="table table-hover mb-3">
 			<thead>
 				<th>Penerima</th>
@@ -19,7 +20,7 @@
 				<th>Stok</th>
 				<th>Berat</th>
 				<th>Tgl Keluar</th>
-				<th></th>
+				<th style="width: 10%">Action</th>
 			</thead>
 			<tbody>
 				@foreach ($data as $row)
@@ -42,6 +43,7 @@
 				
 			</tbody>
 		</table>
+		</div>
 	</x-card>
 
 	{{-- add model --}}
