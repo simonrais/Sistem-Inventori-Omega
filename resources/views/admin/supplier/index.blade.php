@@ -11,7 +11,8 @@
 			<button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah Supplier</button>
 		</x-slot>
 
-		<table class="table table-hover mb-3">
+		<div class="table-responsive">
+		<table class="display table table-striped table-hover">
 			<thead>
 				<th>Nama Supplier</th>
 				<th>Alamat Supplier</th>
@@ -34,9 +35,9 @@
 						</td>
 					</tr>
 				@endforeach
-				
 			</tbody>
 		</table>
+		</div>
 	</x-card>
 
 	{{-- add model --}}

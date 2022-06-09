@@ -14,7 +14,8 @@
 			</form>
 		</x-slot>
 
-		<table class="table table-bordered mb-3">
+		<div class="table-responsive">
+		<table class="display table table-striped table-hover">
 			<thead>
 				<th>Description</th>
 				<th>Properties</th>
@@ -56,6 +57,7 @@
 				@endforelse
 			</tbody>
 		</table>
+		</div>
 		{{ $logs->links() }}
 	</x-card>
 </x-app-layout>

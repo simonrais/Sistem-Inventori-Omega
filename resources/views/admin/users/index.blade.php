@@ -11,12 +11,14 @@
 				<i class="fas fa-plus"></i>
 			</a>
 		</x-slot>
-		<table class="table table-bordered">
+
+		<div class="table-responsive">
+		<table class="display table table-striped table-hover">
 			<thead>
 				<th>Nama</th>
 				<th>Username</th>
 				<th>Peran</th>
-				<th>Action</th>
+				<th style="width: 10%">Action</th>
 			</thead>
 			<tbody>
 				@forelse($users as $user)
@@ -49,6 +51,7 @@
 				@endforelse
 			</tbody>
 		</table>
+		</div>
 		<div class="mt-2">
 			{{ $users->links() }}
 		</div>
