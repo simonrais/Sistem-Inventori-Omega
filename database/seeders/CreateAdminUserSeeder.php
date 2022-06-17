@@ -24,6 +24,7 @@ class CreateAdminUserSeeder extends Seeder
 
         $role = Role::create(['name' => 'Admin']);
 
+        $new = Permission::create(['name' => 'proyek']);
         $permissions = Permission::pluck('id','id')->all();
 
         $role->syncPermissions($permissions);
@@ -31,13 +32,15 @@ class CreateAdminUserSeeder extends Seeder
         $user->assignRole([$role->id]);
 
         $this->createAllRoles();
+
+        $estimator = Role::create(['name' => 'Estimator']);
+        $estimator->syncPermissions([$new->id]);
     }
 
     public function createAllRoles()
     {
         $staffGudang = Role::create(['name' => 'Staff Gudang']);
         $staffBarang = Role::create(['name' => 'Staff Barang']);
-
         $staffGudang->syncPermissions([12]);
         $staffBarang->syncPermissions([11]);
     }

@@ -7,49 +7,62 @@
 
     <x-card>
         <x-slot name="title">Semua Kebutuhan Barang Proyek</x-slot>
-        <x-slot name="option">
-            <div>
-                <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filter Proyek
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a href="{{ route('admin.proyek.index') }}" class="dropdown-item">Semua Proyek</a>
-                    @foreach ($proyeks as $row)
-                        <a class="dropdown-item"
-                            href="{{ route('admin.proyek.index') }}?filter_proyek={{ $row->nama_proyek }}">{{ $row->nama_proyek }}</a>
-                    @endforeach
+        @if (Auth::user()->roles[0]->name == 'Estimator')
+            <x-slot name="option">
+                <div>
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter Proyek
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a href="{{ route('admin.proyek.index') }}" class="dropdown-item">Semua Proyek</a>
+                        @foreach ($proyeks as $row)
+                            <a class="dropdown-item"
+                                href="{{ route('admin.proyek.index') }}?filter_proyek={{ $row->nama_proyek }}">{{ $row->nama_proyek }}</a>
+                        @endforeach
 
+                    </div>
+                    <button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah</button>
                 </div>
-                <button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah</button>
-            </div>
-        </x-slot>
+            </x-slot>
+        @endif
+
         <div class="table-responsive">
             <table class="display table table-striped table-hover" id="daftar">
                 <thead>
                     <tr>
+                        @if (Auth::user()->roles[0]->name == 'Admin')
+                            <th>Estimator</th>
+                        @endif
                         <th>Nama Proyek</th>
                         <th>Nama Barang</th>
                         <th>Jumlah Barang</th>
-                        <th style="width: 10%">Action</th>
+                        @if (Auth::user()->roles[0]->name == 'Estimator')
+                            <th style="width: 10%">Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $row)
                         <tr>
+                            @if (Auth::user()->roles[0]->name == 'Admin')
+                                <td>{{ $row->user->name }}</td>
+                            @endif
                             <td>{{ $row->nama_proyek }}</td>
                             <td>{{ $row->barang->nama }}</td>
                             <td>{{ $row->jumlah }}</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary edit" data-id="{{ $row->id }}"><i
-                                        class="fas fa-edit"></i></button>
-                                <form action="{{ route('admin.proyek.destroy', $row->id) }}"
-                                    style="display: inline-block;" method="POST">
-                                    @csrf
-                                    <button type="button" class="btn btn-sm btn-danger delete"><i
-                                            class="fas fa-trash"></i></button>
-                                </form>
-                            </td>
+                            @if (Auth::user()->roles[0]->name == 'Estimator')
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-primary edit" data-id="{{ $row->id }}"><i
+                                            class="fas fa-edit"></i></button>
+                                    <form action="{{ route('admin.proyek.destroy', $row->id) }}"
+                                        style="display: inline-block;" method="POST">
+                                        @csrf
+                                        <button type="button" class="btn btn-sm btn-danger delete"><i
+                                                class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
 

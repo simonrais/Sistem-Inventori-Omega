@@ -19,6 +19,7 @@
 Aplikasi ini dilengkapi dengan fitur notifikasi yang akan memudahkan staff admin dalam mengetahui update status stok bahan dan fitur pada estimator yang akan memudahkan untuk melakukan upload data estimasi bahan proyek yang dibutuhkan yang nantinya akan disesuaikan datanya dengan stok barang tersedia di gudang.
   
 ```
-composer install
 cp .env.example .env <-- edit db config
-php artisan install
+composer update
+php artisan key:generate
+php artisan migrate:fresh --seed

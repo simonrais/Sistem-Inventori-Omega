@@ -34,16 +34,6 @@
     />
     @endcan
 
-    @can('proyek')
-    <x-nav-link
-        text="Daftar Kebutuhan"
-        icon="th"
-        url="{{ route('admin.proyek.index') }}"
-        active="{{ request()->routeIs('admin.proyek.index') ? ' active' : '' }}"
-    />
-    @endcan
-
-
     @can('barang')
     <x-nav-link
         text="Daftar Barang"
@@ -74,6 +64,15 @@
     />
 
     <hr class="sidebar-divider mb-0">
+    @endcan
+
+    @can('proyek')
+    <x-nav-link
+        text="Daftar Kebutuhan Proyek"
+        icon="th"
+        url="{{ route('admin.proyek.index') }}"
+        active="{{ request()->routeIs('admin.proyek.index') ? ' active' : '' }}"
+    />
     @endcan
 
     <x-nav-link

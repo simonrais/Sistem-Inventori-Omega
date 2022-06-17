@@ -43,6 +43,15 @@
 
                     {{-- Modal Logout --}}
                     <x-modal-logout />
+
+
+                    <x-modal>
+                        <x-slot name="title">
+                            <h6 class="m-0 font-weight-bold text-primary">Semua notifikasi</h6>
+                        </x-slot>
+                        <x-slot name="id">show-all-notif</x-slot>
+                    </x-modal>
+
                 </div>
             </div>
 
@@ -95,27 +104,32 @@
                 var value = snapshot.val();
                 var htmls = [];
                 var count = 0;
-                if(value != null){
+
+                if (value != null) {
                     $.each(value, function(index, value) {
                         if (value) {
                             count++;
-                            htmls.push('<a class="dropdown-item" href="#">' +
+                            htmls.push('<a class="dropdown-item" href="{{route('admin.proyek.index')}}">' +
                                 '<p class="font-weight-bold m-0">' + value.title + '</p>' +
-                                '<small class="text-gray-500">Jumlah barang : ' + value.jumlah + '</small>' +
+                                '<small class="text-gray-500">Jumlah barang : ' + value.jumlah +
+                                '</small>' +
                                 '</a>' +
                                 '<div class="dropdown-divider"></div>');
                         }
                     });
-                    htmls.push('<a class="dropdown-item text-center" href="#">' +
-                        '<strong>Lihat semua notifikasi</strong>' +
-                        '</a>');
+                    // htmls.push('<button class="btn btn-primary show-all-notif"><i class="fas fa-plus"></i> Tambah</button>');
                 } else {
                     htmls.push('<a class="dropdown-item" href="#">' +
-                                '<p class="m-0 text-gray-500">Notifikasi kosong</p></a>');
+                        '<p class="m-0 text-gray-500">Notifikasi kosong</p></a>');
                 }
                 $("#notif-counter").html(count)
-                $('#list-notif').html(htmls);
+                $('#list-notif').html(htmls.reverse());
             });
+
+            $('.show-all-notif').click(function() {
+                // console.log('first')
+                // $('#list-all-notification').modal('show')
+            })
         </script>
     @endif
 

@@ -55,7 +55,7 @@ class ProyekController extends Controller
                 'title' => $title,
                 'nama_barang' => $barang->nama,
                 'jumlah' => $result->jumlah,
-                'created_at' => Carbon::now()
+                'created_at' => time()
             ]);
 
         return back()->with('success', 'Data berhasil ditambahkan');
