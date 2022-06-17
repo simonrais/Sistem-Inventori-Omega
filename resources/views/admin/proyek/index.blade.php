@@ -9,6 +9,18 @@
         <x-slot name="title">Semua Kebutuhan Barang Proyek</x-slot>
         <x-slot name="option">
             <div>
+                <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter Proyek
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a href="{{ route('admin.proyek.index') }}" class="dropdown-item">Semua Proyek</a>
+                    @foreach ($proyeks as $row)
+                        <a class="dropdown-item"
+                            href="{{ route('admin.proyek.index') }}?filter_proyek={{ $row->nama_proyek }}">{{ $row->nama_proyek }}</a>
+                    @endforeach
+
+                </div>
                 <button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah</button>
             </div>
         </x-slot>

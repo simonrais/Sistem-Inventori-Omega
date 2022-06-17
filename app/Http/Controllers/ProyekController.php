@@ -24,8 +24,17 @@ class ProyekController extends Controller
     public function index(Proyek $proyek)
     {
         $barangs = Barang::get();
-        $data = $proyek->with('barang')->get();
-        return view('admin.proyek.index', compact('data', 'barangs'));
+        $proyeks = $proyek->select('nama_proyek')->groupBy('nama_proyek')->get();
+
+        $data = null;
+
+        if (request('filter_proyek')) {
+            $data = $proyek->where('nama_proyek', request('filter_proyek'))->get();
+        } else {
+            $data = $proyek->with('barang')->get();
+        }
+
+        return view('admin.proyek.index', compact('data', 'barangs', 'proyeks'));
     }
 
     public function store(Proyek $proyek, ProyekRequest $request)
