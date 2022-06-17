@@ -1,73 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>{{ $title }}</title>
-        <link href="{{ asset('dist/img/logo/logo.png') }}" rel="shortcut icon" type="image/x-icon">
-        <link href="{{ asset('dist/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('dist/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('dist/vendor/swal2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('dist/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('dist/css/ruang-admin.min.css') }}" rel="stylesheet">
-        {{ ($head) ?? '' }}
-    </head>
 
-    <body id="page-top">
-        <div id="wrapper">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{{ $title }}</title>
+    <link href="{{ asset('dist/img/logo/logo.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('dist/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('dist/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('dist/vendor/swal2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('dist/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/css/ruang-admin.min.css') }}" rel="stylesheet">
+    {{ $head ?? '' }}
+</head>
 
-            {{-- sidebar --}}
-            <x-sidebar></x-sidebar>
-            
-            <div id="content-wrapper" class="d-flex flex-column">
-                <div id="content">
-                    {{-- topbar --}}
-                    <x-topbar></x-topbar>
+<body id="page-top">
+    <div id="wrapper">
 
-                    {{-- container fluid --}}
-                    <div class="container-fluid" id="container-wrapper">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
-                            </ol>
-                        </div>
+        {{-- sidebar --}}
+        <x-sidebar></x-sidebar>
 
-                        {{-- Main content --}}
-                        {{ $slot }}
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                {{-- topbar --}}
+                <x-topbar></x-topbar>
 
-                        {{-- Modal Logout --}}
-                        <x-modal-logout/>
+                {{-- container fluid --}}
+                <div class="container-fluid" id="container-wrapper">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
+                        </ol>
+                    </div>
+
+                    {{-- Main content --}}
+                    {{ $slot }}
+
+                    {{-- Modal Logout --}}
+                    <x-modal-logout />
+                </div>
+            </div>
+
+            {{-- Footer --}}
+            <footer class="sticky-footer bg-white mt-3">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>copyright &copy;
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>
+                        </span>
                     </div>
                 </div>
-
-                {{-- Footer --}}
-                <footer class="sticky-footer bg-white mt-3">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                        <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script>
-                        </span>
-                        </div>
-                    </div>
-                </footer>
-            </div>
+            </footer>
         </div>
+    </div>
 
-        {{-- Scroll to top --}}
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+    {{-- Scroll to top --}}
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-        <script src="{{ asset('dist/vendor/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('dist/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-        <script src="{{ asset('dist/js/ruang-admin.min.js') }}"></script>
-        <script src="{{ asset('dist/vendor/chart.js/Chart.min.js') }}"></script>
-        <script src="{{ asset('dist/vendor/swal2/sweetalert2.min.js') }}"></script>
-        {{ ($script) ?? '' }}
-    </body>
+    <script src="{{ asset('dist/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('dist/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('dist/js/ruang-admin.min.js') }}"></script>
+    <script src="{{ asset('dist/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('dist/vendor/swal2/sweetalert2.min.js') }}"></script>
+    {{ $script ?? '' }}
+
+
+    @if (Auth::user()->roles[0]->name == 'Admin')
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+        <script type="text/javascript">
+            const firebaseConfig = {
+                apiKey: "AIzaSyAY8Oewk5M1UjY76H1rJ-rWpyS1bn082fY",
+                authDomain: "fcmapp-a5591.firebaseapp.com",
+                projectId: "fcmapp-a5591",
+                storageBucket: "fcmapp-a5591.appspot.com",
+                messagingSenderId: "191242303839",
+                appId: "1:191242303839:web:03899986e91dddda0d9eea"
+            };
+
+            // Initialize Firebase
+            const app = firebase.initializeApp(firebaseConfig);
+            var database = firebase.database();
+            database.ref("notication/proyek").orderByChild('created_at').limitToLast(5).on('value', function(snapshot) {
+                var value = snapshot.val();
+                var htmls = [];
+                var count = 0;
+                if(value != null){
+                    $.each(value, function(index, value) {
+                        if (value) {
+                            count++;
+                            htmls.push('<a class="dropdown-item" href="#">' +
+                                '<p class="font-weight-bold m-0">' + value.title + '</p>' +
+                                '<small class="text-gray-500">Jumlah barang : ' + value.jumlah + '</small>' +
+                                '</a>' +
+                                '<div class="dropdown-divider"></div>');
+                        }
+                    });
+                    htmls.push('<a class="dropdown-item text-center" href="#">' +
+                        '<strong>Lihat semua notifikasi</strong>' +
+                        '</a>');
+                } else {
+                    htmls.push('<a class="dropdown-item" href="#">' +
+                                '<p class="m-0 text-gray-500">Notifikasi kosong</p></a>');
+                }
+                $("#notif-counter").html(count)
+                $('#list-notif').html(htmls);
+            });
+        </script>
+    @endif
+
+</body>
+
 </html>

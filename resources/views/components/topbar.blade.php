@@ -4,9 +4,31 @@
     </button>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown no-arrow">
+            @if (Auth::user()->roles[0]->name == 'Admin')
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <span class="badge badge-danger" id="notif-counter">0</span><i class="fa fa-fw fa-bell"></i>
+                </a>
+            @endif
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <div class="dropdown-item">
+                    <div class="d-flex align-items-center">
+                        <i class="fa fa-fw fa-bell d-block"></i>
+                        <h6 class="m-0">Notifikasi</h6>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div id="list-notif">
+
+                </div>
+            </div>
+        </li>
+        <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-                <img class="img-profile rounded-circle" src="{{ asset((auth()->user()->avatar) ? 'storage/'.auth()->user()->avatar : 'dist/img/boy.png') }}" style="max-width: 60px">
+                aria-haspopup="true" aria-expanded="false">
+                <img class="img-profile rounded-circle"
+                    src="{{ asset(auth()->user()->avatar ? 'storage/' . auth()->user()->avatar : 'dist/img/boy.png') }}"
+                    style="max-width: 60px">
                 <span class="ml-2 d-none d-lg-inline text-white small">{{ Auth::user()->name }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -7,69 +7,78 @@
     </a>
     <hr class="sidebar-divider my-0">
 
-    <x-nav-link 
-        text="Dashboard" 
-        icon="tachometer-alt" 
+    <x-nav-link
+        text="Dashboard"
+        icon="tachometer-alt"
         url="{{ route('admin.dashboard') }}"
         active="{{ request()->routeIs('admin.dashboard') ? ' active' : '' }}"
     />
 
     @can('member-list')
-    <x-nav-link 
-        text="Daftar Petugas" 
-        icon="users" 
+    <x-nav-link
+        text="Daftar Petugas"
+        icon="users"
         url="{{ route('admin.member') }}"
         active="{{ request()->routeIs('admin.member') ? ' active' : '' }}"
     />
     @endcan
-    
+
     <hr class="sidebar-divider mb-0">
 
     @can('gudang')
-    <x-nav-link 
-        text="Daftar Gudang" 
-        icon="th" 
+    <x-nav-link
+        text="Daftar Gudang"
+        icon="th"
         url="{{ route('admin.gudang.index') }}"
         active="{{ request()->routeIs('admin.gudang.index') ? ' active' : '' }}"
     />
     @endcan
 
+    @can('proyek')
+    <x-nav-link
+        text="Daftar Kebutuhan"
+        icon="th"
+        url="{{ route('admin.proyek.index') }}"
+        active="{{ request()->routeIs('admin.proyek.index') ? ' active' : '' }}"
+    />
+    @endcan
+
 
     @can('barang')
-    <x-nav-link 
-        text="Daftar Barang" 
-        icon="box" 
+    <x-nav-link
+        text="Daftar Barang"
+        icon="box"
         url="{{ route('admin.barang.index') }}"
         active="{{ request()->routeIs('admin.barang.index') ? ' active' : '' }}"
     />
-    
-    <x-nav-link 
-        text="Barang Masuk" 
-        icon="sign-in-alt" 
+
+    <x-nav-link
+        text="Barang Masuk"
+        icon="sign-in-alt"
         url="{{ route('admin.barang-masuk.index') }}"
         active="{{ request()->routeIs('admin.barang-masuk.index') ? ' active' : '' }}"
     />
 
-    <x-nav-link 
-        text="Barang Keluar" 
-        icon="sign-out-alt" 
+    <x-nav-link
+        text="Barang Keluar"
+        icon="sign-out-alt"
         url="{{ route('admin.barang-keluar.index') }}"
         active="{{ request()->routeIs('admin.barang-keluar.index') ? ' active' : '' }}"
     />
-    
-    <x-nav-link 
-        text="Daftar Supplier" 
-        icon="users" 
+
+    <x-nav-link
+        text="Daftar Supplier"
+        icon="users"
         url="{{ route('admin.supplier.index') }}"
         active="{{ request()->routeIs('admin.supplier.index') ? ' active' : '' }}"
     />
 
     <hr class="sidebar-divider mb-0">
     @endcan
-    
-    <x-nav-link 
-        text="Laporan" 
-        icon="file" 
+
+    <x-nav-link
+        text="Laporan"
+        icon="file"
         url="{{ route('admin.laporan.index') }}"
         active="{{ request()->routeIs('admin.laporan.index') ? ' active' : '' }}"
     />

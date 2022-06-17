@@ -2,14 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-	DashboardController, 
+	DashboardController,
 	BarangController,
 	GudangController,
 	SupplierController,
 	BarangMasukController,
 	BarangKeluarController,
 	LaporanController,
-	UserController
+    ProyekController,
+    UserController
 };
 
 Route::redirect('/', '/login');
@@ -23,11 +24,11 @@ Route::group([
 
 	Route::get('/logs', [DashboardController::class, 'activity_logs'])->name('logs');
 	Route::post('/logs/delete', [DashboardController::class, 'delete_logs'])->name('logs.delete');
-	
+
 	// Settings menu
 	Route::view('/settings', 'admin.settings')->name('settings');
 	Route::post('/settings', [DashboardController::class, 'settings_store'])->name('settings');
-	
+
 	// Profile menu
 	Route::view('/profile', 'admin.profile')->name('profile');
 	Route::post('/profile', [DashboardController::class, 'profile_update'])->name('profile');
@@ -48,6 +49,13 @@ Route::group([
 	Route::post('/barang/update', [BarangController::class, 'update'])->name('barang.update');
 	Route::get('/barang/info', [BarangController::class, 'info'])->name('barang.info');
 	Route::post('/barang/{id}/destroy', [BarangController::class, 'destroy'])->name('barang.destroy');
+
+    // Estimator
+	Route::get('/proyek', [ProyekController::class, 'index'])->name('proyek.index');
+	Route::get('/proyek/info', [ProyekController::class, 'info'])->name('proyek.info');
+	Route::post('/proyek/store', [ProyekController::class, 'store'])->name('proyek.store');
+	Route::post('/proyek/update', [ProyekController::class, 'update'])->name('proyek.update');
+	Route::post('/proyek/{id}/destroy', [ProyekController::class, 'destroy'])->name('proyek.destroy');
 
 	// Gudang
 	Route::get('/gudang', [GudangController::class, 'index'])->name('gudang.index');
