@@ -1,6 +1,6 @@
 ## Admin credentials
 **username:** admin
-**password:** admin123
+**password:** admin
   
 ## Menu
 
