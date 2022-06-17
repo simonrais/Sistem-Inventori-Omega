@@ -88,14 +88,14 @@
         <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
         <script type="text/javascript">
-            const firebaseConfig = {
-                apiKey: "AIzaSyAY8Oewk5M1UjY76H1rJ-rWpyS1bn082fY",
-                authDomain: "fcmapp-a5591.firebaseapp.com",
-                projectId: "fcmapp-a5591",
-                storageBucket: "fcmapp-a5591.appspot.com",
-                messagingSenderId: "191242303839",
-                appId: "1:191242303839:web:03899986e91dddda0d9eea"
-            };
+           const firebaseConfig = {
+                apiKey: "AIzaSyC_BVaU0Dk6mgT0-abwFS0Ccr3696Ms8jc",
+                authDomain: "inventoryproject-43df6.firebaseapp.com",
+                projectId: "inventoryproject-43df6",
+                storageBucket: "inventoryproject-43df6.appspot.com",
+                messagingSenderId: "254831582136",
+                appId: "1:254831582136:web:9923205ce7440619890d4d"
+                };
 
             // Initialize Firebase
             const app = firebase.initializeApp(firebaseConfig);
