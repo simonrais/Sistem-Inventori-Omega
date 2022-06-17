@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Barang, Gudang};
+use App\Models\{Barang, Gudang, Kategori};
 use Illuminate\Http\Request;
 use App\Http\Requests\BarangRequest;
 
@@ -14,10 +14,11 @@ class BarangController extends Controller
             'only' => ['index','store', 'info', 'update', 'destroy']
         ]);
     }
-    
+
     public function index(Barang $barang)
     {
     	$gudang = Gudang::all();
+    	$kategori = Kategori::all();
 
     	$data = null;
 
@@ -28,7 +29,7 @@ class BarangController extends Controller
 	    	$data = $barang->all();
 	    }
 
-    	return view('admin.barang.index', compact('data', 'gudang'));
+    	return view('admin.barang.index', compact('data', 'gudang', 'kategori'));
     }
 
     public function store(Barang $barang, Gudang $gudang, BarangRequest $request)
@@ -40,7 +41,7 @@ class BarangController extends Controller
 
     public function info(Barang $barang)
     {
-    	$data = $barang->find(request('id'));
+    	$data = $barang->with('kategori')->find(request('id'));
         $gudang = Gudang::find($data->gudang_id);
     	return [
     		'barang' => $data,

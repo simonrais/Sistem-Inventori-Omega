@@ -44,6 +44,7 @@ class ProyekController extends Controller
         $payload['user_id'] = $user->id;
         $result = $proyek->create($payload);
 
+        Barang::find($result->barang_id)->decrement('jumlah', $request->jumlah);
         $barang = Barang::find($result->barang_id);
 
         $id = $result->id;
@@ -55,6 +56,7 @@ class ProyekController extends Controller
                 'title' => $title,
                 'nama_barang' => $barang->nama,
                 'jumlah' => $result->jumlah,
+                'sisa' => $barang->jumlah,
                 'created_at' => time()
             ]);
 

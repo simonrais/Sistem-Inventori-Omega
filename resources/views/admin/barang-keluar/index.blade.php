@@ -14,6 +14,7 @@
 		<div class="table-responsive">
 		<table class="table table-hover mb-3">
 			<thead>
+				<th>Gambar</th>
 				<th>Penerima</th>
 				<th>Nama Barang</th>
 				<th>Harga</th>
@@ -25,6 +26,10 @@
 			<tbody>
 				@foreach ($data as $row)
 					<tr>
+                        <td>
+                            <img src={{ $row->image ?? 'https://bitsofco.de/content/images/2018/12/broken-1.png' }}
+                                width="50" alt="">
+                        </td>
 						<td>{{ $row->penerima }}</td>
 						<td>{{ $row->barang->nama }}</td>
 						<td>{{ $row->harga }}</td>
@@ -40,7 +45,7 @@
 						</td>
 					</tr>
 				@endforeach
-				
+
 			</tbody>
 		</table>
 		</div>
@@ -54,7 +59,7 @@
 		<x-slot name="id">add</x-slot>
 
 
-		<form action="{{ route('admin.barang-keluar.store') }}" method="post" class="form-group">
+		<form action="{{ route('admin.barang-keluar.store') }}" method="post" class="form-group" enctype="multipart/form-data">
 			@csrf
 			<div class="row">
 				<div class="col-md-6">
@@ -95,6 +100,10 @@
 					</div>
 				</div>
 			</div>
+            <div class="form-group">
+                <label for="">Gambar</label>
+                <input type="file" class="form-control file" name="file">
+            </div>
 			<div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
 			</div>
@@ -110,7 +119,7 @@
 		<x-slot name="id">edit</x-slot>
 
 
-		<form action="{{ route('admin.barang-keluar.update') }}" method="post" id="edit" class="form-group">
+		<form action="{{ route('admin.barang-keluar.update') }}" method="post" id="edit" class="form-group" enctype="multipart/form-data">
 			@csrf
 			<input type="hidden" name="id">
 			<div class="row">
@@ -152,6 +161,10 @@
 					</div>
 				</div>
 			</div>
+            <div class="form-group">
+                <label for="">Gambar</label>
+                <input type="file" class="form-control file" name="file">
+            </div>
 			<div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
 			</div>
@@ -159,7 +172,7 @@
 		</form>
 	</x-modal>
 
-	
+
 
 	<x-slot name="script">
 		<script src="{{ asset('dist/vendor/datatables/jquery.dataTables.min.js') }}"></script>
@@ -201,7 +214,7 @@
 				}).then((result) => {
 					if (result.isConfirmed) {
 				  		$(this).parent().submit()
-					} 
+					}
 				})
 
 			})

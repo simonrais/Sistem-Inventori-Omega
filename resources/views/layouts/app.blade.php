@@ -88,14 +88,14 @@
         <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
         <script type="text/javascript">
-           const firebaseConfig = {
+            const firebaseConfig = {
                 apiKey: "AIzaSyC_BVaU0Dk6mgT0-abwFS0Ccr3696Ms8jc",
                 authDomain: "inventoryproject-43df6.firebaseapp.com",
                 projectId: "inventoryproject-43df6",
                 storageBucket: "inventoryproject-43df6.appspot.com",
                 messagingSenderId: "254831582136",
                 appId: "1:254831582136:web:9923205ce7440619890d4d"
-                };
+            };
 
             // Initialize Firebase
             const app = firebase.initializeApp(firebaseConfig);
@@ -109,9 +109,10 @@
                     $.each(value, function(index, value) {
                         if (value) {
                             count++;
-                            htmls.push('<a class="dropdown-item" href="{{route('admin.proyek.index')}}">' +
+                            htmls.push('<a class="dropdown-item" href="{{ route('admin.proyek.index') }}">' +
                                 '<p class="font-weight-bold m-0">' + value.title + '</p>' +
                                 '<small class="text-gray-500">Jumlah barang : ' + value.jumlah +
+                                ' | Sisa barang : ' + (value.sisa ? value.sisa : ' ') +
                                 '</small>' +
                                 '</a>' +
                                 '<div class="dropdown-divider"></div>');

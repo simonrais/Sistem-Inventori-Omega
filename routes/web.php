@@ -8,8 +8,10 @@ use App\Http\Controllers\{
 	SupplierController,
 	BarangMasukController,
 	BarangKeluarController,
-	LaporanController,
+    KategoriController,
+    LaporanController,
     ProyekController,
+    RiwayatController,
     UserController
 };
 
@@ -42,6 +44,16 @@ Route::group([
 	Route::get('/petugas/{id}/edit', [UserController::class, 'edit'])->name('member.edit');
 	Route::post('/petugas/{id}/update', [UserController::class, 'update'])->name('member.update');
 	Route::post('/petugas/{id}/delete', [UserController::class, 'destroy'])->name('member.delete');
+
+	// Kategori
+	Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+	Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+	Route::post('/kategori/update', [KategoriController::class, 'update'])->name('kategori.update');
+	Route::get('/kategori/info', [KategoriController::class, 'info'])->name('kategori.info');
+	Route::post('/kategori/{id}/destroy', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+
+	// Riwayat
+	Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
 
 	// Barang
 	Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
