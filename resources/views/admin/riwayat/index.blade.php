@@ -55,6 +55,7 @@
                         <th>Tanggal</th>
                         <th>Barang Masuk</th>
                         <th>Barang Keluar</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,6 +65,11 @@
                             <td>{{ $row->date }}</td>
                             <td>{{ $row->masuk }}</td>
                             <td>{{ $row->keluar }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('admin.riwayat.detail', ['date' => $row->date, 'kategori' => app('request')->input('kategori'), 'barang' => app('request')->input('barang')]) }}"
+                                    class="btn btn-sm btn-info info"><i class="fas fa-info-circle"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
 

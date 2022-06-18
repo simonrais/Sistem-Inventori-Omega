@@ -79,4 +79,31 @@ class RiwayatController extends Controller
         }
         return view('admin.riwayat.index', compact('data', 'barang', 'kategori'));
     }
+
+    public function detail(Request $request)
+    {
+        $query_masuk = BarangMasuk::select('barang_id', DB::raw('SUM(jumlah) as stok_brg_masuk'))->with('barang.kategori')->whereDate('updated_at', $request->date)->groupBy('barang_id');
+        if ($request->barang) {
+            $query_masuk->where('barang_id', $request->barang);
+        }
+        if ($request->kategori) {
+            $query_masuk->with('barang')->whereHas('barang', function ($q) use ($request) {
+                $q->where('kategori_id', $request->kategori);
+            });
+        }
+        $masuk = $query_masuk->get();
+
+        $query_keluar = BarangKeluar::select('barang_id', DB::raw('SUM(jumlah) as stok_brg_keluar'))->with('barang.kategori')->whereDate('updated_at', $request->date)->groupBy('barang_id');
+        if ($request->barang) {
+            $query_keluar->where('barang_id', $request->barang);
+        }
+        if ($request->kategori) {
+            $query_keluar->whereHas('barang', function ($q) use ($request) {
+                $q->where('kategori_id', $request->kategori);
+            });
+        }
+        $keluar = $query_keluar->get();
+
+        return view('admin.riwayat.detail', compact('masuk', 'keluar'));
+    }
 }

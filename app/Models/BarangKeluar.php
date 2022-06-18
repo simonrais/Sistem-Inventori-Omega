@@ -11,7 +11,7 @@ class BarangKeluar extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable = ['penerima', 'berat', 'barang_id', 'harga', 'jumlah', 'image'];
+    protected $fillable = ['penerima', 'berat', 'barang_id', 'harga', 'jumlah'];
 
     // log configuration
     protected static $logAttributes = ['berat', 'harga', 'jumlah', 'penerima'];
@@ -24,12 +24,6 @@ class BarangKeluar extends Model
     {
         return "You have {$eventName} stock-out";
     }
-
-    public function getImageAttribute()
-    {
-        return $this->attributes['image'] ?  URL::to('/') . '/uploads/barang/keluar/' . $this->attributes['image'] : null;
-    }
-
 
     public function barang()
     {

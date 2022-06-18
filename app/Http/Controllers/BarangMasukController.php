@@ -27,13 +27,6 @@ class BarangMasukController extends Controller
     public function store(BarangMasuk $barang_masuk, BarangMasukRequest $request)
     {
         $payload = $request->all();
-        if ($request->hasFile('file')) {
-            $fileName = time() . '.' . $request->file->extension();
-
-            $request->file->move(public_path('uploads/barang/masuk'), $fileName);
-            $payload['image'] = $request->file ? $fileName : null;
-        }
-
         $result = $barang_masuk->create($payload);
         Barang::find($request->barang_id)->increment('jumlah', $request->jumlah);
 
@@ -65,19 +58,8 @@ class BarangMasukController extends Controller
 
         $jumlah = $request->jumlah - $result->jumlah;
 
-        if ($request->hasFile('file')) {
-            $fileName = time() . '.' . $request->file->extension();
+        $result->update($request->all());
 
-            $request->file->move(public_path('uploads/barang/masuk'), $fileName);
-        }
-
-        $result->update($request->except('file'));
-
-        if ($request->hasFile('file')) {
-            $result->update([
-                'image' => $fileName,
-            ]);
-        }
         // untuk laporan
         Laporan::where('jenis', 'Barang Masuk')->where('root_id', $result->id)->update([
             'nama' => $result->barang->nama,

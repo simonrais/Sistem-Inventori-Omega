@@ -28,6 +28,7 @@
             <table class="display table table-striped table-hover" id="daftar">
                 <thead>
                     <tr>
+                        <th>Gambar Barang</th>
                         <th>Kode Barang</th>
                         <th>Kategori Barang</th>
                         <th>Nama Barang</th>
@@ -39,6 +40,10 @@
                 <tbody>
                     @foreach ($data as $row)
                         <tr>
+                            <td>
+                                <img src={{ $row->image ?? 'https://bitsofco.de/content/images/2018/12/broken-1.png' }}
+                                    width="50" alt="">
+                            </td>
                             <td>{{ $row->kode }}</td>
                             <td>{{ $row->kategori->nama }}</td>
                             <td>{{ $row->nama }}</td>
@@ -78,7 +83,8 @@
         <x-slot name="id">add</x-slot>
 
 
-        <form action="{{ route('admin.barang.store') }}" method="post" class="form-group">
+        <form action="{{ route('admin.barang.store') }}" method="post" class="form-group"
+            enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="">Kategori Barang</label>
@@ -130,6 +136,10 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="">Gambar</label>
+                <input type="file" class="form-control file" name="file">
+            </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </x-modal>
@@ -142,7 +152,8 @@
         <x-slot name="id">edit</x-slot>
 
 
-        <form action="{{ route('admin.barang.update') }}" method="post" id="edit" class="form-group">
+        <form action="{{ route('admin.barang.update') }}" method="post" id="edit" class="form-group"
+            enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="">
             <div class="form-group">
@@ -194,6 +205,11 @@
                         </select>
                     </div>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Gambar</label>
+                <input type="file" class="form-control file" name="file">
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
@@ -282,7 +298,7 @@
                 const id = $(this).data('id')
 
                 $.get(`{{ route('admin.barang.info') }}?id=${id}`, function(data) {
-                console.log(data)
+                    console.log(data)
                     $('#kategori').text(data.barang.kategori.nama)
                     $('#nama').text(data.barang.nama)
                     $('#kode').text(data.barang.kode)

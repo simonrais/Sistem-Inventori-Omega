@@ -54,6 +54,7 @@ Route::group([
 
 	// Riwayat
 	Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
+	Route::get('/riwayat/detail', [RiwayatController::class, 'detail'])->name('riwayat.detail');
 
 	// Barang
 	Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');

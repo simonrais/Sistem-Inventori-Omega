@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Barang extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable = ['kode', 'nama', 'jumlah', 'kondisi', 'gudang_id', 'kategori_id'];
+    protected $fillable = ['kode', 'nama', 'jumlah', 'kondisi', 'gudang_id', 'kategori_id', 'image'];
 
     // log configuration
     protected static $logAttributes = ['kode', 'nama', 'jumlah', 'kondisi'];
@@ -22,6 +23,12 @@ class Barang extends Model
     public function getDescriptionForEvent(string $eventName): string
     {
         return "You have {$eventName} goods";
+    }
+
+
+    public function getImageAttribute()
+    {
+        return $this->attributes['image'] ?  URL::to('/') . '/uploads/barang/' . $this->attributes['image'] : null;
     }
 
     public function barang_masuks()

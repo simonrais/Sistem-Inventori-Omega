@@ -24,14 +24,7 @@ class BarangKeluarController extends Controller
 
     public function store(BarangKeluar $barang_keluar, BarangKeluarRequest $request)
     {
-        $payload = $request->all();
-        if ($request->hasFile('file')) {
-            $fileName = time() . '.' . $request->file->extension();
-
-            $request->file->move(public_path('uploads/barang/keluar'), $fileName);
-            $payload['image'] = $request->file ? $fileName : null;
-        }
-        $result = $barang_keluar->create($payload);
+        $result = $barang_keluar->create($request->all());
 
         Barang::find($request->barang_id)->decrement('jumlah', $request->jumlah);
 
@@ -63,19 +56,7 @@ class BarangKeluarController extends Controller
 
         $jumlah =  $result->jumlah - $request->jumlah;
 
-        if ($request->hasFile('file')) {
-            $fileName = time() . '.' . $request->file->extension();
-
-            $request->file->move(public_path('uploads/barang/keluar'), $fileName);
-        }
-
-        $result->update($request->except('file'));
-
-        if ($request->hasFile('file')) {
-            $result->update([
-                'image' => $fileName,
-            ]);
-        }
+        $result->update($request->all());
 
         // untuk laporan
         Laporan::where('jenis', 'Barang Keluar')->where('root_id', $result->id)->update([
