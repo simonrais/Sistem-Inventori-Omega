@@ -112,7 +112,7 @@
                             htmls.push('<a class="dropdown-item" href="{{ route('admin.proyek.index') }}">' +
                                 '<p class="font-weight-bold m-0">' + value.title + '</p>' +
                                 '<small class="text-gray-500">Jumlah barang : ' + value.jumlah +
-                                ' | Sisa barang : ' + (value.sisa ? value.sisa : ' ') +
+                                // ' | Sisa barang : ' + (value.sisa ? value.sisa : ' ') +
                                 '</small>' +
                                 '</a>' +
                                 '<div class="dropdown-divider"></div>');
