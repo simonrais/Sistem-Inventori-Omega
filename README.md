@@ -1,6 +1,12 @@
 ## Admin credentials
 **username:** admin
 **password:** admin
+
+## Estimator credentials
+**username:** estimator
+**password:** estimator
+
+
   
 ## Menu
 
