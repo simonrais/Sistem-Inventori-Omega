@@ -5,7 +5,7 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown no-arrow">
             @if (Auth::user()->roles[0]->name == 'Admin')
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle nav-notif" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <span class="badge badge-danger" id="notif-counter">0</span><i class="fa fa-fw fa-bell"></i>
                 </a>

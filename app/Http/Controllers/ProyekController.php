@@ -52,7 +52,9 @@ class ProyekController extends Controller
             ->getReference('notication/proyek/' . $id)
             ->set([
                 'user' => $user->name,
+                'id' => $id,
                 'title' => $title,
+                'isRead' => 'no',
                 'nama_barang' => $barang->nama,
                 'jumlah' => $result->jumlah,
                 'created_at' => time()

@@ -107,8 +107,11 @@
 
                 if (value != null) {
                     $.each(value, function(index, value) {
-                        if (value) {
+                        if (value && value.isRead === 'no') {
                             count++;
+                        }
+
+                        if (value) {
                             htmls.push('<a class="dropdown-item" href="{{ route('admin.proyek.index') }}">' +
                                 '<p class="font-weight-bold m-0">' + value.title + '</p>' +
                                 '<small class="text-gray-500">Jumlah barang : ' + value.jumlah +
@@ -127,7 +130,22 @@
                 $('#list-notif').html(htmls.reverse());
             });
 
-            $('.show-all-notif').click(function() {
+            $('.nav-notif').click(function() {
+                console.log('reset')
+                database.ref("notication/proyek").orderByChild('created_at').limitToLast(5).on('value', function(
+                    snapshot) {
+                    var value = snapshot.val();
+                    $.each(value, function(index, value) {
+                        if (value != null && value.isRead === 'no') {
+                            let data = database.ref('notication/proyek/' + value.id);
+                            data.update({
+                                'isRead': 'yes'
+                            })
+                        }
+                    });
+                    // htmls.push('<button class="btn btn-primary show-all-notif"><i class="fas fa-plus"></i> Tambah</button>');
+                });
+                // $("#notif-counter").html(0)
                 // console.log('first')
                 // $('#list-all-notification').modal('show')
             })

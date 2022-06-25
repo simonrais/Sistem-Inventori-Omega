@@ -33,7 +33,8 @@
                         <th>Kategori Barang</th>
                         <th>Nama Barang</th>
                         <th>Jumlah Barang</th>
-                        <th>Kondisi Barang</th>
+                        <th>
+                        {{-- <th>Kondisi Barang</th> --}} -- Kondisi Barang
                         <th style="width: 10%">Action</th>
                     </tr>
                 </thead>
@@ -48,13 +49,14 @@
                             <td>{{ $row->kategori->nama }}</td>
                             <td>{{ $row->nama }}</td>
                             <td>{{ $row->jumlah }}</td>
-                            <td>
+                            <td>{{ $row->warna }}</td>
+                            {{-- <td>
                                 @if ($row->kondisi == 0)
                                     <span class="badge badge-success">Baru</span>
                                 @else
                                     <span class="badge badge-warning">Bekas</span>
                                 @endif
-                            </td>
+                            </td> --}}  Kondisi Barang 
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info info" data-id="{{ $row->id }}"><i
                                         class="fas fa-info-circle"></i></button>
