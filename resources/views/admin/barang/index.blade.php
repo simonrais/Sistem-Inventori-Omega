@@ -34,7 +34,7 @@
                         <th>Nama Barang</th>
                         <th>Jumlah Barang</th>
                         <th>
-                        {{-- <th>Kondisi Barang</th> --}} -- Kondisi Barang
+                        <th>Kondisi Barang</th> 
                         <th style="width: 10%">Action</th>
                     </tr>
                 </thead>
@@ -50,13 +50,13 @@
                             <td>{{ $row->nama }}</td>
                             <td>{{ $row->jumlah }}</td>
                             <td>{{ $row->warna }}</td>
-                            {{-- <td>
+                            <td>
                                 @if ($row->kondisi == 0)
                                     <span class="badge badge-success">Baru</span>
                                 @else
                                     <span class="badge badge-warning">Bekas</span>
                                 @endif
-                            </td> --}}  Kondisi Barang 
+                            </td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info info" data-id="{{ $row->id }}"><i
                                         class="fas fa-info-circle"></i></button>
@@ -194,7 +194,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Jumlah Barang</label>
-                        <input type="number" class="form-control" name="jumlah" readonly disabled>
+                        <input type="number" class="form-control" name="jumlah" >
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -318,7 +318,7 @@
 
                 $.get(`{{ route('admin.barang.info') }}?id=${id}`, function(data) {
                     $('#edit input[name="id"]').val(id)
-
+                    
                     $('#edit input[name="nama"]').val(data.barang.nama)
                     $('#edit input[name="kode"]').val(data.barang.kode)
                     $('#edit input[name="jumlah"]').val(data.barang.jumlah)
