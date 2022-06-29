@@ -79,7 +79,7 @@ class BarangController extends Controller
         }
 
 
-        return back();
+        return back()->with('success', 'Barang berhasil diupdate');
     }
 
     public function destroy(Barang $barang, $id)

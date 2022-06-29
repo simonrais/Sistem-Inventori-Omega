@@ -33,8 +33,9 @@
                         <th>Kategori Barang</th>
                         <th>Nama Barang</th>
                         <th>Jumlah Barang</th>
-                        <th>
-                        <th>Kondisi Barang</th> 
+                        <th>Merk Barang</th>
+                        <th>Warna Barang</th>
+                        <th>Satuan Barang</th>  
                         <th style="width: 10%">Action</th>
                     </tr>
                 </thead>
@@ -49,14 +50,9 @@
                             <td>{{ $row->kategori->nama }}</td>
                             <td>{{ $row->nama }}</td>
                             <td>{{ $row->jumlah }}</td>
+                            <td>{{ $row->merk }}</td>
                             <td>{{ $row->warna }}</td>
-                            <td>
-                                @if ($row->kondisi == 0)
-                                    <span class="badge badge-success">Baru</span>
-                                @else
-                                    <span class="badge badge-warning">Bekas</span>
-                                @endif
-                            </td>
+                            <td>{{ $row->satuan }}</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info info" data-id="{{ $row->id }}"><i
                                         class="fas fa-info-circle"></i></button>
@@ -129,14 +125,23 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">Kondisi Barang</label>
-                        <select name="kondisi" class="form-control">
-                            <option value="">--- Pilih Kondisi ---</option>
-                            <option value="0">Baru</option>
-                            <option value="1">Bekas</option>
-                        </select>
+                        <label for="">Merk Barang</label>
+                        <input type="text" class="form-control" name="merk" required="">
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Warna Barang</label>
+                        <input type="text" class="form-control" name="warna" required="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Satuan Barang</label>
+                        <input type="text" class="form-control" name="satuan" required="">
+                    </div>
+                </div>
+            
             </div>
             <div class="form-group">
                 <label for="">Gambar</label>
@@ -199,14 +204,23 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">Kondisi Barang</label>
-                        <select name="kondisi" class="form-control">
-                            <option value="">--- Pilih Kondisi ---</option>
-                            <option value="0">Baru</option>
-                            <option value="1">Bekas</option>
-                        </select>
+                        <label for="">Merk Barang</label>
+                        <input type="text" class="form-control" name="merk" required="">
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Warna Barang</label>
+                        <input type="text" class="form-control" name="warna" required="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Satuan Barang</label>
+                        <input type="text" class="form-control" name="satuan" required="">
+                    </div>
+                </div>
+            
             </div>
 
             <div class="form-group">
@@ -271,10 +285,28 @@
 
         <div class="row">
             <div class="col-md-6">
-                <span>Kondisi</span>
+                <span>Merk</span>
             </div>
             <div class="col-md-6">
-                <span class="mr-2">:</span><span id="kondisi"></span>
+                <span class="mr-2">:</span><span id="merk"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <span>Warna</span>
+            </div>
+            <div class="col-md-6">
+                <span class="mr-2">:</span><span id="warna"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <span>Satuan</span>
+            </div>
+            <div class="col-md-6">
+                <span class="mr-2">:</span><span id="satuan"></span>
             </div>
         </div>
 
@@ -306,8 +338,11 @@
                     $('#kode').text(data.barang.kode)
                     $('#gudang').text(data.gudang.nama)
                     $('#jumlah').text(data.barang.jumlah)
+                    $('#merk').text(data.barang.merk)
+                    $('#warna').text(data.barang.warna)
+                    $('#satuan').text(data.barang.satuan)
                     $('#tgl').text(new Date(data.barang.created_at).toLocaleString())
-                    $('#kondisi').text((data.barang.kondisi == 0) ? 'Baru' : 'Bekas')
+                    
                 })
 
                 $('#info').modal('show')
@@ -322,10 +357,12 @@
                     $('#edit input[name="nama"]').val(data.barang.nama)
                     $('#edit input[name="kode"]').val(data.barang.kode)
                     $('#edit input[name="jumlah"]').val(data.barang.jumlah)
+                    $('#edit input[name="merk"]').val(data.barang.merk)
+                    $('#edit input[name="warna"]').val(data.barang.warna)
+                    $('#edit input[name="satuan"]').val(data.barang.satuan)
                     $(`#edit option[value="${data.gudang.id}"]`).attr('selected', 'true')
                     $(`#edit option[value="${data.barang.kategori_id}"]`).attr('selected', 'true')
-                    $(`#edit select[name="kondisi"] option[value="${data.barang.kondisi}"]`).attr('selected',
-                        'true')
+                    
                 })
 
                 $('#edit').modal('show')

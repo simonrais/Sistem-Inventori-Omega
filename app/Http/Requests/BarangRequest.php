@@ -27,9 +27,11 @@ class BarangRequest extends FormRequest
             'kode' => 'required|string',
             'nama' => 'required|string',
             'jumlah' => 'required|numeric|gt:0',
-            'kondisi' => 'required|numeric|gte:0|lt:2',
             'gudang_id' => 'required|numeric',
-            'kategori_id' => 'required|numeric'
+            'kategori_id' => 'required|numeric',
+            'merk' => 'required|string',
+            'warna' => 'required|string',
+            'satuan' => 'required|string'
         ];
     }
 }

@@ -17,7 +17,9 @@ class BarangFactory extends Factory
             'kode' => strtoupper(\Str::random(2)),
             'nama' => $this->faker->word(),
             'jumlah' => rand(10,60),
-            'kondisi' => rand(0,1)
+            'merk' => $this->faker->word(),
+            'warna' => $this->faker->word(),
+            'satuan' => $this->faker->word()
         ];
     }
 }
