@@ -7,9 +7,10 @@
     
         {{-- show alert if there is errors --}}
         <x-alert-error/>
-        
+       
         <x-slot name="title">
-            Login
+            <h3>Login</h3>
+            <img src="/images/logoomega.png">
         </x-slot>
         <form action="{{ route('login') }}" method="POST">
             @csrf
