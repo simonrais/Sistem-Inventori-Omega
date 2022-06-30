@@ -11,10 +11,10 @@ class BarangKeluar extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable = ['penerima', 'berat', 'barang_id', 'harga', 'jumlah'];
+    protected $fillable = ['berat', 'barang_id', 'harga', 'jumlah', 'proyek_id'];
 
     // log configuration
-    protected static $logAttributes = ['berat', 'harga', 'jumlah', 'penerima'];
+    protected static $logAttributes = ['berat', 'harga', 'jumlah'];
     protected static $igonoreChangedAttributes = ['updated_at'];
     protected static $recordEvents = ['created', 'updated', 'deleted'];
     protected static $logOnlyDirty = true;
@@ -28,5 +28,10 @@ class BarangKeluar extends Model
     public function barang()
     {
     	return $this->belongsTo(Barang::class);
+    }
+
+    public function proyek()
+    {
+        return $this->belongsTo(Proyek::class);
     }
 }

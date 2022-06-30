@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{BarangKeluar, Barang, Laporan};
+use App\Models\{BarangKeluar, Barang, Laporan, Proyek};
 use Illuminate\Http\Request;
 use App\Http\Requests\BarangKeluarRequest;
 
@@ -11,15 +11,16 @@ class BarangKeluarController extends Controller
     function __construct()
     {
         $this->middleware('permission:barang', [
-            'only' => ['index', 'store', 'info', 'update', 'destroy']
+            'only' => ['index','store', 'info', 'update', 'destroy']
         ]);
     }
 
     public function index(BarangKeluar $barang_keluar)
     {
         $barang = Barang::select('nama', 'id')->get();
-        $data = $barang_keluar->with('barang')->latest()->get();
-        return view('admin.barang-keluar.index', compact('data', 'barang'));
+        $proyek = Proyek::select('nama_proyek', 'id')->get();
+        $data = $barang_keluar->with('barang', 'proyek')->latest()->get();
+        return view('admin.barang-keluar.index', compact('data', 'barang', 'proyek'));
     }
 
     public function store(BarangKeluar $barang_keluar, BarangKeluarRequest $request)
@@ -27,11 +28,13 @@ class BarangKeluarController extends Controller
         $result = $barang_keluar->create($request->all());
 
         Barang::find($request->barang_id)->decrement('jumlah', $request->jumlah);
+        
+        
 
         // untuk laporan
         Laporan::create([
             'nama' => $result->barang->nama,
-            'orang' => $request->penerima,
+            'orang' => $result->proyek->nama_proyek,
             'jumlah' => $request->jumlah,
             'berat' => $request->berat,
             'harga' => $request->harga,
@@ -44,7 +47,8 @@ class BarangKeluarController extends Controller
 
     public function info(BarangKeluar $barang_keluar)
     {
-        $data = $barang_keluar->with('barang')->find(request('id'));
+        $data = $barang_keluar->with('barang', 'proyek')->find(request('id'));
+        
 
 
         return $data;
@@ -61,7 +65,7 @@ class BarangKeluarController extends Controller
         // untuk laporan
         Laporan::where('jenis', 'Barang Keluar')->where('root_id', $result->id)->update([
             'nama' => $result->barang->nama,
-            'orang' => $result->penerima,
+            'orang' => $result->proyek->nama_proyek,
             'jumlah' => $request->jumlah,
             'berat' => $request->berat,
             'harga' => $request->harga,

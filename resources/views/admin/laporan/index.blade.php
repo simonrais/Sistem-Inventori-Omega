@@ -10,11 +10,11 @@
 
 	<x-card>
 		<x-slot name="title">Semua Laporan</x-slot>
-
+		<div class="table-responsive">
 		<table class="table table-hover mb-3">
 			<thead>
 				<th>Nama Barang</th>
-				<th>Dari/Kepada</th>
+				<th>Proyek</th>
 				<th>Harga</th>
 				<th>Stok</th>
 				<th>Berat</th>
@@ -36,6 +36,7 @@
 				
 			</tbody>
 		</table>
+		</div>
 	</x-card>
 
 	

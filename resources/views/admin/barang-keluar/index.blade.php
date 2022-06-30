@@ -15,7 +15,7 @@
 		<table class="table table-hover mb-3">
 			<thead>
 				<th>Gambar</th>
-				<th>Penerima</th>
+				<th>Proyek</th>
 				<th>Nama Barang</th>
 				<th>Harga</th>
 				<th>Stok</th>
@@ -30,7 +30,7 @@
                             <img src={{ $row->barang->image ?? 'https://bitsofco.de/content/images/2018/12/broken-1.png' }}
                                 width="50" alt="">
                         </td>
-						<td>{{ $row->penerima }}</td>
+						<td>{{ $row->proyek->nama_proyek }}</td>
 						<td>{{ $row->barang->nama }}</td>
 						<td>{{ $row->harga }}</td>
 						<td>{{ $row->jumlah }}</td>
@@ -64,8 +64,13 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="">Penerima</label>
-						<input type="text" class="form-control" name="penerima">
+						<label for="">Proyek</label>
+						<select name="proyek_id" class="form-control">
+							<option value="">-- Pilih Proyek --</option>
+							@foreach ($proyek as $row)
+								<option value="{{ $row->id }}">{{ $row->nama_proyek }}</option>
+							@endforeach
+						</select>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -121,8 +126,13 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="">Penerima</label>
-						<input type="text" class="form-control" name="penerima">
+						<label for="">Proyek</label>
+						<select name="proyek_id" class="form-control">
+							<option value="">-- Pilih Proyek --</option>
+							@foreach ($proyek as $row)
+								<option value="{{ $row->id }}">{{ $row->nama_proyek }}</option>
+							@endforeach
+						</select>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -184,7 +194,7 @@
 					$('#edit input[name="id"]').val(id)
 
 					$(`#edit select[name="barang_id"] option[value="${data.barang.id}"]`).attr('selected', 'true')
-					$('#edit input[name="penerima"]').val(data.penerima)
+					$(`#edit select[name="proyek_id"] option[value="${data.proyek.id}"]`).attr('selected', 'true')
 					$('#edit input[name="jumlah"]').val(data.jumlah)
 					$('#edit input[name="berat"]').val(data.berat)
 					$('#edit input[name="harga"]').val(data.harga)
