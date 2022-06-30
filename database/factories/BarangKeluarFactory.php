@@ -14,7 +14,6 @@ class BarangKeluarFactory extends Factory
     public function definition()
     {
         return [
-            'penerima' => $this->faker->name(), 
             'berat' => rand(1,3),
             'harga' => rand(10000, 50000), 
             'jumlah' => rand(5, 20)

@@ -24,7 +24,7 @@ class BarangKeluarRequest extends FormRequest
     public function rules()
     {
         return [
-            'penerima' => 'required|string', 
+            'proyek_id' => 'required|numeric|gt:0', 
             'berat' => 'required|numeric|gt:0', 
             'barang_id' => 'required|numeric|gt:0', 
             'harga' => 'required|string', 
