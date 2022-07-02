@@ -10,7 +10,7 @@
        
         <x-slot name="title">
             <h3>Login</h3>
-            <img src="/images/logoomega.png">
+            <img src="/images/logoomega.png" style="width: 100%">
         </x-slot>
         <form action="{{ route('login') }}" method="POST">
             @csrf
