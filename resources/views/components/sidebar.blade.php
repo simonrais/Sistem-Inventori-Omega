@@ -31,13 +31,19 @@
     @can('barang')
         <x-nav-link text="Daftar Barang" icon="box" url="{{ route('admin.barang.index') }}"
             active="{{ request()->routeIs('admin.barang.index') ? ' active' : '' }}" />
+            @endcan
 
+    @can('barang-masuk')
         <x-nav-link text="Barang Masuk" icon="sign-in-alt" url="{{ route('admin.barang-masuk.index') }}"
             active="{{ request()->routeIs('admin.barang-masuk.index') ? ' active' : '' }}" />
+        @endcan
 
+    @can('barang-keluar')
         <x-nav-link text="Barang Keluar" icon="sign-out-alt" url="{{ route('admin.barang-keluar.index') }}"
             active="{{ request()->routeIs('admin.barang-keluar.index') ? ' active' : '' }}" />
+        @endcan
 
+    @can('supplier')
         <x-nav-link text="Daftar Supplier" icon="users" url="{{ route('admin.supplier.index') }}"
             active="{{ request()->routeIs('admin.supplier.index') ? ' active' : '' }}" />
 

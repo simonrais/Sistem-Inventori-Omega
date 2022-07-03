@@ -10,7 +10,7 @@ class SupplierController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:barang', [
+        $this->middleware('permission:supplier', [
             'only' => ['index','store', 'info', 'update', 'destroy']
         ]);
     }
