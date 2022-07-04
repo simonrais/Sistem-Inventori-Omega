@@ -10,7 +10,7 @@ class BarangMasukController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:barang', [
+        $this->middleware('permission:barang-masuk', [
             'only' => ['index', 'store', 'info', 'update', 'destroy']
         ]);
     }

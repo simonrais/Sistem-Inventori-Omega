@@ -40,8 +40,6 @@ class CreateAdminUserSeeder extends Seeder
     public function createAllRoles()
     {
         $staffGudang = Role::create(['name' => 'Staff Gudang']);
-        $staffBarang = Role::create(['name' => 'Staff Barang']);
-        $staffGudang->syncPermissions([12]);
-        $staffBarang->syncPermissions([11]);
+        $staffGudang->syncPermissions([13,14]);
     }
 }

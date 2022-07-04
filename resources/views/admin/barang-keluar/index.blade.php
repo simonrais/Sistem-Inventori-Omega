@@ -98,12 +98,6 @@
 						<input type="number" value="0" class="form-control" name="berat">
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="">Harga</label>
-						<input type="text" placeholder="Rp. 0" class="form-control harga" name="harga">
-					</div>
-				</div>
 			</div>
 			<div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>

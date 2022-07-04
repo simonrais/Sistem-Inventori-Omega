@@ -26,7 +26,10 @@ class PermissionTableSeeder extends Seeder
            'setting-list',
            'setting-edit',
            'barang',
-           'gudang'
+           'gudang',
+           'barang-masuk',
+           'barang-keluar',
+           'supplier'
         ];
      
         foreach ($permissions as $permission) {
