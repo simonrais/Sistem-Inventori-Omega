@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\{Barang, Gudang, Kategori};
 use Illuminate\Http\Request;
 use App\Http\Requests\BarangRequest;
+use DB;
 
 class BarangController extends Controller
 {
@@ -29,7 +30,23 @@ class BarangController extends Controller
             $data = $barang->all();
         }
 
-        return view('admin.barang.index', compact('data', 'gudang', 'kategori'));
+        $q = DB::table('barangs')->select(DB::raw('MAX(RIGHT(kode, 4)) as kod'));
+        $kd="";
+        if($q->count()>0)
+        {
+            foreach($q->get() as $k)
+            {
+                $tmp = ((int)$k->kod)+1;
+                $kd = sprintf("%04s", $tmp);
+
+            }
+        }
+        else
+        {
+            $kd = "0001";
+        }
+
+        return view('admin.barang.index', compact('data', 'gudang', 'kategori', 'kd'));
     }
 
     public function store(Barang $barang, Gudang $gudang, BarangRequest $request)

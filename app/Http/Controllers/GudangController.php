@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\{Gudang, Barang};
 use Illuminate\Http\Request;
 use App\Http\Requests\GudangRequest;
+use DB;
 
 class GudangController extends Controller
 {
@@ -18,7 +19,25 @@ class GudangController extends Controller
     public function index(Gudang $gudang)
     {
     	$data = $gudang->all();
-    	return view('admin.gudang.index', compact('data'));
+
+        $q = DB::table('gudangs')->select(DB::raw('MAX(RIGHT(kode, 2)) as kod'));
+        $kd="";
+        if($q->count()>0)
+        {
+            foreach($q->get() as $k)
+            {
+                $tmp = ((int)$k->kod)+1;
+                $kd = sprintf("%02s", $tmp);
+
+            }
+        }
+        else
+        {
+            $kd = "01";
+        }
+
+
+    	return view('admin.gudang.index', compact('data', 'kd'));
     }
 
     public function store(Gudang $gudang, GudangRequest $request)
