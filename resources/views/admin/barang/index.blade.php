@@ -33,9 +33,9 @@
                         <th>Kategori Barang</th>
                         <th>Nama Barang</th>
                         <th>Jumlah Barang</th>
+                        <th>Satuan Barang</th>  
                         <th>Merk Barang</th>
                         <th>Warna Barang</th>
-                        <th>Satuan Barang</th>  
                         <th style="width: 10%">Action</th>
                     </tr>
                 </thead>
@@ -50,9 +50,9 @@
                             <td>{{ $row->kategori->nama }}</td>
                             <td>{{ $row->nama }}</td>
                             <td>{{ $row->jumlah }}</td>
+                            <td>{{ $row->satuan }}</td>
                             <td>{{ $row->merk }}</td>
                             <td>{{ $row->warna }}</td>
-                            <td>{{ $row->satuan }}</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-info info" data-id="{{ $row->id }}"><i
                                         class="fas fa-info-circle"></i></button>
@@ -97,7 +97,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Kode Barang</label>
-                        <input type="text" class="form-control" name="kode" required="">
+                        <input type="text" class="form-control" readonly="" value="{{ 'KNB-'.$kd }}"  name="kode" required="">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -176,7 +176,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Kode Barang</label>
-                        <input type="text" class="form-control" name="kode" required="">
+                        <input type="text" class="form-control" readonly=""  name="kode" required="">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -199,7 +199,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Jumlah Barang</label>
-                        <input type="number" class="form-control" name="jumlah" >
+                        <input type="number" class="form-control" name="jumlah" readonly >
                     </div>
                 </div>
                 <div class="col-md-6">

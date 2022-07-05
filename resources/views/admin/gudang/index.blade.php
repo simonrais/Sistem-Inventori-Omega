@@ -57,7 +57,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="">Kode Gudang</label>
-						<input type="text" class="form-control" name="kode" required="">
+						<input type="text" class="form-control"  readonly="" value="{{ 'GD-'.$kd }}" name="kode" required="">
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -89,7 +89,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="">Kode Gudang</label>
-						<input type="text" class="form-control" name="kode" required="">
+						<input type="text" class="form-control" readonly="" name="kode" required="">
 					</div>
 				</div>
 				<div class="col-md-6">
