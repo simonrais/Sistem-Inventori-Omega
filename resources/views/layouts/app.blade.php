@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>{{ $title }}</title>
-    <link href="{{ asset('dist/img/logo/logo.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('dist/img/logo/LogoOmega1.png') }}" rel="shortcut icon" type="image/x-icon">
     <link href="{{ asset('dist/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('dist/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('dist/vendor/swal2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">

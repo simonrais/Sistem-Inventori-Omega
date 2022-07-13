@@ -32,15 +32,15 @@ class BarangKeluarController extends Controller
         
 
         // untuk laporan
-        Laporan::create([
-            'nama' => $result->barang->nama,
-            'orang' => $result->proyek->nama_proyek,
-            'jumlah' => $request->jumlah,
-            'berat' => $request->berat,
-            'harga' => $request->harga,
-            'jenis' => 'Barang Keluar',
-            'root_id' => $result->id
-        ]);
+        // Laporan::create([
+        //     'nama' => $result->barang->nama,
+        //     'orang' => $result->proyek->nama_proyek,
+        //     'jumlah' => $request->jumlah,
+        //     'berat' => $request->berat,
+        //     'harga' => $request->harga,
+        //     'jenis' => 'Barang Keluar',
+        //     'root_id' => $result->id
+        // ]);
 
         return back()->with('success', 'Stok berhasil dikurangi');
     }
@@ -63,14 +63,14 @@ class BarangKeluarController extends Controller
         $result->update($request->all());
 
         // untuk laporan
-        Laporan::where('jenis', 'Barang Keluar')->where('root_id', $result->id)->update([
-            'nama' => $result->barang->nama,
-            'orang' => $result->proyek->nama_proyek,
-            'jumlah' => $request->jumlah,
-            'berat' => $request->berat,
-            'harga' => $request->harga,
-            'jenis' => 'Barang Keluar'
-        ]);
+        // Laporan::where('jenis', 'Barang Keluar')->where('root_id', $result->id)->update([
+        //     'nama' => $result->barang->nama,
+        //     'orang' => $result->proyek->nama_proyek,
+        //     'jumlah' => $request->jumlah,
+        //     'berat' => $request->berat,
+        //     'harga' => $request->harga,
+        //     'jenis' => 'Barang Keluar'
+        // ]);
 
         // untuk barang
         $result->barang->increment('jumlah', $jumlah);
