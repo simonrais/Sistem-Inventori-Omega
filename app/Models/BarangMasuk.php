@@ -11,10 +11,10 @@ class BarangMasuk extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable = ['supplier_id', 'berat', 'barang_id', 'harga', 'jumlah'];
+    protected $fillable = ['supplier_id', 'berat', 'barang_id', 'harga', 'jumlah','tgl_brg_masuk' ];
 
     // log configuration
-    protected static $logAttributes = ['berat', 'harga', 'jumlah'];
+    protected static $logAttributes = ['berat', 'harga', 'jumlah', 'tgl_brg_masuk'];
     protected static $igonoreChangedAttributes = ['updated_at'];
     protected static $recordEvents = ['created', 'updated', 'deleted'];
     protected static $logOnlyDirty = true;
