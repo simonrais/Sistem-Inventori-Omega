@@ -17,9 +17,7 @@
 				<th>Gambar</th>
 				<th>Proyek</th>
 				<th>Nama Barang</th>
-				<th>Harga</th>
-				<th>Stok</th>
-				<th>Berat</th>
+				<th>Stok Keluar</th>
 				<th>Tgl Keluar</th>
 				<th style="width: 10%">Action</th>
 			</thead>
@@ -32,10 +30,8 @@
                         </td>
 						<td>{{ $row->proyek->nama_proyek }}</td>
 						<td>{{ $row->barang->nama }}</td>
-						<td>{{ $row->harga }}</td>
 						<td>{{ $row->jumlah }}</td>
-						<td>{{ $row->berat }}kg</td>
-						<td>{{ $row->created_at->format('d-m-Y') }}</td>
+						<td>{{ date('d-F-Y', strtotime($row->tgl_brg_keluar)) }}</td>
 						<td class="text-center">
 							<button class="btn btn-sm btn-primary edit" data-id="{{ $row->id }}"><i class="fas fa-edit"></i></button>
 							<form action="{{ route('admin.barang-keluar.destroy', $row->id) }}" style="display: inline-block;" method="POST">
@@ -92,12 +88,13 @@
 						<input type="number" value="0" class="form-control" name="jumlah">
 					</div>
 				</div>
+
 				<div class="col-md-4">
-					<div class="form-group">
-						<label for="">Berat (kg)</label>
-						<input type="number" value="0" class="form-control" name="berat">
-					</div>
-				</div>
+                    <div class="form-group">
+                        <label for="">Tanggal Keluar</label>
+                        <input type="date"  class="form-control" name="tgl_brg_keluar">
+                    </div>
+            </div>
 			</div>
 			<div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
@@ -148,18 +145,14 @@
 						<input type="number" value="0" class="form-control" name="jumlah">
 					</div>
 				</div>
+
+				
 				<div class="col-md-4">
-					<div class="form-group">
-						<label for="">Berat (kg)</label>
-						<input type="number" value="0" class="form-control" name="berat">
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="">Harga</label>
-						<input type="text" placeholder="Rp. 0" class="form-control harga" name="harga">
-					</div>
-				</div>
+                    <div class="form-group">
+                        <label for="">Tanggal Keluar</label>
+                        <input type="date"  class="form-control" name="tgl_brg_keluar">
+                    </div>
+            </div>
 			</div>
 			<div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
@@ -175,7 +168,6 @@
 		<script src="{{ asset('dist/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 		<script src="{{ asset('dist/js/simple.money.format.js') }}"></script>
 		<script>
-			$('.harga').simpleMoneyFormat();
 
 			$('.add').click(function() {
 				$('#add').modal('show')
@@ -190,8 +182,7 @@
 					$(`#edit select[name="barang_id"] option[value="${data.barang.id}"]`).attr('selected', 'true')
 					$(`#edit select[name="proyek_id"] option[value="${data.proyek.id}"]`).attr('selected', 'true')
 					$('#edit input[name="jumlah"]').val(data.jumlah)
-					$('#edit input[name="berat"]').val(data.berat)
-					$('#edit input[name="harga"]').val(data.harga)
+					$('#edit input[name="tgl_brg_keluar"]').val(data.tgl_brg_keluar)
 					$('#edit textarea[name="catatan"]').val(data.catatan)
 				})
 

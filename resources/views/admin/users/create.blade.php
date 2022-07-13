@@ -26,7 +26,7 @@
 			        <x-input text="Password" name="password" type="password" />
 				</div>
 				<div class="col-md-6">
-					<x-input text="Password" name="confirm-password" type="password" />
+					<x-input text="Confirm Password" name="confirm-password" type="password" />
 				</div>
 			</div>
 
