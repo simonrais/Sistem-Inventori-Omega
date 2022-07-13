@@ -21,7 +21,7 @@
                     <th>Nama Barang</th>
                     <th>Harga</th>
                     <th>Stok</th>
-                    <th>Berat</th>
+                    <th>Total</th>
                     <th>Tgl Masuk</th>
                     <th style="width: 10%">Action</th>
                 </thead>
@@ -36,8 +36,8 @@
                             <td>{{ $row->barang->nama }}</td>
                             <td>{{ $row->harga }}</td>
                             <td>{{ $row->jumlah }}</td>
-                            <td>{{ $row->berat }}kg</td>
-                            <td>{{ $row->created_at->format('d-m-Y') }}</td>
+                            <td>{{ $row->j }}</td>
+                            <td>{{ date('d-F-Y', strtotime($row->tgl_brg_masuk)) }}</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-primary edit" data-id="{{ $row->id }}"><i
                                         class="fas fa-edit"></i></button>
@@ -97,18 +97,21 @@
                         <input type="number" value="0" class="form-control" name="jumlah">
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="">Berat (kg)</label>
-                        <input type="number" value="0" class="form-control" name="berat">
-                    </div>
-                </div>
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Harga</label>
                         <input type="text" placeholder="Rp. 0" class="form-control harga" name="harga">
                     </div>
                 </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Tanggal Masuk</label>
+                        <input type="date"  class="form-control" name="tgl_brg_masuk">
+                    </div>
+            </div>
+            
             </div>
             <div class="form-group">
                 <textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
@@ -161,16 +164,18 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="">Berat (kg)</label>
-                        <input type="number" value="0" class="form-control" name="berat">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
                         <label for="">Harga</label>
                         <input type="text" placeholder="Rp. 0" class="form-control harga" name="harga">
                     </div>
                 </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Tanggal Masuk</label>
+                        <input type="date"  class="form-control" name="tgl_brg_masuk">
+                    </div>
+            </div>
+
             </div>
             <div class="form-group">
                 <textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
@@ -203,8 +208,8 @@
                     $(`#edit select[name="barang_id"] option[value="${data.barang.id}"]`).attr('selected',
                         'true')
                     $('#edit input[name="jumlah"]').val(data.jumlah)
-                    $('#edit input[name="berat"]').val(data.berat)
                     $('#edit input[name="harga"]').val(data.harga)
+                    $('#edit input[name="tgl_brg_masuk"]').val(data.tgl_brg_masuk)
                     $('#edit textarea[name="catatan"]').val(data.catatan)
                 })
 

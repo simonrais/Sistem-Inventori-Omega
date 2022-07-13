@@ -15,6 +15,7 @@ class AddColumnToBarangKeluarsTable extends Migration
     {
         Schema::table('barang_keluars', function (Blueprint $table) {
             $table->foreignId('proyek_id');
+            $table->date('tgl_brg_keluar')->nullable(); 
         });
     }
 
@@ -27,6 +28,7 @@ class AddColumnToBarangKeluarsTable extends Migration
     {
         Schema::table('barang_keluars', function (Blueprint $table) {
             $table->dropColumn('proyek_id');
+            $table->dropColumn('tgl_brg_keluar');
         });
     }
 }
