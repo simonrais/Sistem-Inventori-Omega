@@ -25,7 +25,7 @@ class BarangMasukRequest extends FormRequest
     {
         return [
             'supplier_id' => 'required|numeric|gt:0', 
-            'berat' => 'required|numeric|gt:0', 
+
             'barang_id' => 'required|numeric|gt:0', 
             'harga' => 'required|string',
             'jumlah' => 'required|numeric|gt:0'
