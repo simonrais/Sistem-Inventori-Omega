@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Supplier, Barang, Laporan, Gudang};
+use App\Models\{Supplier, Barang, BarangKeluar, BarangMasuk, Laporan, Gudang};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Models\Activity;
@@ -18,15 +18,63 @@ class DashboardController extends Controller
     */
     public function index()
     {
-        return view('admin.dashboard', [
-            'supplier' => Supplier::count(),
-            'jumlah_gudang' => Gudang::count(),
-            'jumlah_barang' => (int)Barang::sum('jumlah'),
-            'in_out' => Laporan::sum('jumlah'),
-            'gudangs' => Gudang::get(),
-            'barangs' => Barang::get(),
-            'data' => Laporan::latest()->limit(6)->get()
-        ]);
+        
+                     
+        
+        $supplier = Supplier::count();
+        $jumlah_barang = Barang::count();
+        $barangs=Barang::get();
+        $jumlah_gudang = Gudang::count();
+        $data = Laporan::latest()->limit(6)->get();
+        $date = date('Y-m-d');
+
+        $barang_masuks = BarangMasuk::count();
+        $barang_keluars = BarangKeluar::count();
+
+        // untuk statistik perbulan
+        // masuk 
+         $masuk_jan = BarangMasuk::whereMonth('tgl_brg_masuk', '01')->count();
+         $masuk_feb = BarangMasuk::whereMonth('tgl_brg_masuk', '02')->count();
+         $masuk_mar = BarangMasuk::whereMonth('tgl_brg_masuk', '03')->count();
+         $masuk_apr = BarangMasuk::whereMonth('tgl_brg_masuk', '04')->count();
+         $masuk_mei = BarangMasuk::whereMonth('tgl_brg_masuk', '05')->count();
+         $masuk_jun = BarangMasuk::whereMonth('tgl_brg_masuk', '06')->count();
+         $masuk_jul = BarangMasuk::whereMonth('tgl_brg_masuk', '07')->count();
+         $masuk_agu = BarangMasuk::whereMonth('tgl_brg_masuk', '08')->count();
+         $masuk_sep = BarangMasuk::whereMonth('tgl_brg_masuk', '09')->count();
+         $masuk_okt = BarangMasuk::whereMonth('tgl_brg_masuk', '10')->count();
+         $masuk_nov = BarangMasuk::whereMonth('tgl_brg_masuk', '11')->count();
+         $masuk_des = BarangMasuk::whereMonth('tgl_brg_masuk', '12')->count();
+
+         // keluar
+         $keluar_jan = BarangKeluar::whereMonth('tgl_brg_keluar', '01')->count();
+         $keluar_feb = BarangKeluar::whereMonth('tgl_brg_keluar', '02')->count();
+         $keluar_mar = BarangKeluar::whereMonth('tgl_brg_keluar', '03')->count();
+         $keluar_apr = BarangKeluar::whereMonth('tgl_brg_keluar', '04')->count();
+         $keluar_mei = BarangKeluar::whereMonth('tgl_brg_keluar', '05')->count();
+         $keluar_jun = BarangKeluar::whereMonth('tgl_brg_keluar', '06')->count();
+         $keluar_jul = BarangKeluar::whereMonth('tgl_brg_keluar', '07')->count();
+         $keluar_agu = BarangKeluar::whereMonth('tgl_brg_keluar', '08')->count();
+         $keluar_sep = BarangKeluar::whereMonth('tgl_brg_keluar', '09')->count();
+         $keluar_okt = BarangKeluar::whereMonth('tgl_brg_keluar', '10')->count();
+         $keluar_nov = BarangKeluar::whereMonth('tgl_brg_keluar', '11')->count();
+         $keluar_des = BarangKeluar::whereMonth('tgl_brg_keluar', '12')->count();
+
+
+
+
+
+        return view('admin.dashboard',
+        compact('supplier', 'barangs', 
+        'jumlah_gudang', 'jumlah_barang', 'data', 'barang_masuks', 'barang_keluars','masuk_jan',
+        'masuk_feb','masuk_mar','masuk_apr','masuk_mei', 'masuk_jun','masuk_jul','masuk_agu',
+        'masuk_sep', 'masuk_okt', 'masuk_nov','masuk_des', 
+        'keluar_jan', 'keluar_feb','keluar_mar','keluar_apr','keluar_mei', 'keluar_jun','keluar_jul','keluar_agu',
+        'keluar_sep', 'keluar_okt', 'keluar_nov','keluar_des'));
+
+            
+            
+        
     }
 
     /**
