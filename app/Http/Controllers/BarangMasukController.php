@@ -30,16 +30,16 @@ class BarangMasukController extends Controller
         $result = $barang_masuk->create($payload);
         Barang::find($request->barang_id)->increment('jumlah', $request->jumlah);
 
-        // untuk laporan
-        Laporan::create([
-            'nama' => $result->barang->nama,
-            'orang' => $result->supplier->nama,
-            'jumlah' => $request->jumlah,
-            'berat' => $request->berat,
-            'harga' => $request->harga,
-            'jenis' => 'Barang Masuk',
-            'root_id' => $result->id
-        ]);
+        // // untuk laporan
+        // Laporan::create([
+        //     'nama' => $result->barang->nama,
+        //     'orang' => $result->supplier->nama,
+        //     'jumlah' => $request->jumlah,
+        //     // 'berat' => $request->berat,
+        //     'harga' => $request->harga,
+        //     'jenis' => 'Barang Masuk',
+        //     'root_id' => $result->id
+        // ]);
 
         return back()->with('success', 'Stok berhasil ditambahkan');
     }
@@ -65,7 +65,7 @@ class BarangMasukController extends Controller
             'nama' => $result->barang->nama,
             'orang' => $result->supplier->nama,
             'jumlah' => $request->jumlah,
-            'berat' => $request->berat,
+            // 'berat' => $request->berat,
             'harga' => $request->harga,
             'jenis' => 'Barang Masuk'
         ]);

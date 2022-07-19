@@ -17,7 +17,7 @@
 				<th>Proyek</th>
 				<th>Harga</th>
 				<th>Stok</th>
-				<th>Berat</th>
+				{{-- <th>Berat</th> --}}
 				<th>Tanggal</th>
 				<th>Aksi</th>
 			</thead>
@@ -28,7 +28,7 @@
 						<td>{{ $row->orang }}</td>
 						<td>{{ $row->harga }}</td>
 						<td>{{ $row->jumlah }}</td>
-						<td>{{ $row->berat }}kg</td>
+						{{-- <td>{{ $row->berat }}kg</td> --}}
 						<td>{{ $row->created_at->format('d-m-Y') }}</td>
 						<td><span class="badge badge-{{ ($row->jenis == 'Barang Masuk') ? 'success' : 'danger' }}">{{ $row->jenis }}</span></td>
 					</tr>
