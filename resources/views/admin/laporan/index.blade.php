@@ -39,7 +39,6 @@
 		</div>
 	</x-card>
 
-	
 
 	<x-slot name="script">
 		<script src="{{ asset('dist/vendor/datatables/jquery.dataTables.min.js') }}"></script>
