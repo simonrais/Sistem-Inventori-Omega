@@ -2,6 +2,10 @@
 **username:** admin
 **password:** admin
 
+## Staff credentials
+**username:** staff
+**password:** staff
+
 ## Estimator credentials
 **username:** estimator
 **password:** estimator
