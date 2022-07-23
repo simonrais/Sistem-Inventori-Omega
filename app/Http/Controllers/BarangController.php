@@ -51,7 +51,18 @@ class BarangController extends Controller
 
     public function store(Barang $barang, Gudang $gudang, BarangRequest $request)
     {
+
+
         $payload = $request->all();
+
+        $request->validate([
+            'file' => 'required|image|max:2048'
+        ],
+    [
+        'file.image' => 'File harus berupa gambar!
+        Silahkan Upload kembali'
+    ]);
+
         if ($request->hasFile('file')) {
             $fileName = time() . '.' . $request->file->extension();
 

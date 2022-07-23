@@ -27,6 +27,8 @@ class BarangMasukController extends Controller
     public function store(BarangMasuk $barang_masuk, BarangMasukRequest $request)
     {
         $payload = $request->all();
+        $payload['harga'] = str_replace(",", "", $request->harga);
+        
         $result = $barang_masuk->create($payload);
         Barang::find($request->barang_id)->increment('jumlah', $request->jumlah);
 

@@ -5,6 +5,10 @@
         <x-alert type="success" message="{{ session()->get('success') }}" />
     @endif
 
+    @error('file')
+    <x-alert type="danger" message="{{ $message }}" />         
+    @enderror
+
     <x-card>
         <x-slot name="title">Semua Barang</x-slot>
         <x-slot name="option">
@@ -226,6 +230,7 @@
             <div class="form-group">
                 <label for="">Gambar</label>
                 <input type="file" class="form-control file" name="file">
+        
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>

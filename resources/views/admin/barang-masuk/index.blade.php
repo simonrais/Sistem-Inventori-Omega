@@ -34,9 +34,9 @@
                             </td>
                             <td>{{ $row->supplier->nama }}</td>
                             <td>{{ $row->barang->nama }}</td>
-                            <td>{{ $row->harga }}</td>
+                            <td>Rp. {{ number_format($row->harga, 0)  }}</td>
                             <td>{{ $row->jumlah }}</td>
-                            <td>{{ $row->j }}</td>
+                            <td>Rp. {{ number_format($row->harga * $row->jumlah, 0)}}</td>
                             <td>{{ date('d-F-Y', strtotime($row->tgl_brg_masuk)) }}</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-primary edit" data-id="{{ $row->id }}"><i
