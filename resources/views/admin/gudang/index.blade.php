@@ -37,7 +37,7 @@
 						</td>
 					</tr>
 				@endforeach
-				
+
 			</tbody>
 		</table>
 		</div>
@@ -63,6 +63,12 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="">Nama Gudang</label>
+						<input type="text" class="form-control" name="nama" required="">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="">Jumlah Barang</label>
 						<input type="text" class="form-control" name="nama" required="">
 					</div>
 				</div>
@@ -187,7 +193,7 @@
 				}).then((result) => {
 					if (result.isConfirmed) {
 				  		$(this).parent().submit()
-					} 
+					}
 				})
 
 			})

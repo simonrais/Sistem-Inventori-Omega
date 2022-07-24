@@ -42,19 +42,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $row)
+                    @php
+                        $i = 0;
+                    @endphp
+                    @foreach ($payload as $row)
                         <tr>
                             @if (Auth::user()->roles[0]->name == 'Admin')
-                                <td>{{ $row->user->name }}</td>
+                                <td>{{ $payload[0]['user']->name }}</td>
                             @endif
-                            <td>{{ $row->nama_proyek }}</td>
-                            <td>{{ $row->barang->nama }}</td>
-                            <td>{{ $row->jumlah }}</td>
+                            <td >{{ $payload[$i]['nama_proyek'] }}</td>
+                            <td>
+                                <ul>
+                                    @foreach ($payload[$i]['barangs'] as $item )
+                                        <li>{{ $item->nama }} </li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    @foreach ($payload[$i]['jumlah'] as $item )
+                                        <li>{{ $item }} </li>
+                                    @endforeach
+                                </ul>
+
+                            </td>
                             @if (Auth::user()->roles[0]->name == 'Estimator')
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-primary edit" data-id="{{ $row->id }}"><i
+                                <td class="text-center" >
+                                    <button class="btn btn-sm btn-primary edit" data-id="{{ $payload[$i]['id'] }}"><i
                                             class="fas fa-edit"></i></button>
-                                    <form action="{{ route('admin.proyek.destroy', $row->id) }}"
+                                    <form action="{{ route('admin.proyek.destroy', $payload[$i]['id']) }}"
                                         style="display: inline-block;" method="POST">
                                         @csrf
                                         <button type="button" class="btn btn-sm btn-danger delete"><i
@@ -63,6 +79,11 @@
                                 </td>
                             @endif
                         </tr>
+
+
+                        @php
+                            $i++;
+                        @endphp
                     @endforeach
 
                 </tbody>
@@ -84,20 +105,31 @@
                 <label for="">Nama Proyek</label>
                 <input type="text" class="form-control" name="nama_proyek" required="">
             </div>
-            <div class="form-group">
-                <label for="">Barang</label>
-                <select name="barang_id" class="form-control">
-                    <option value="">--- Pilih Barang ---</option>
-                    @foreach ($barangs as $row)
-                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
-                    @endforeach
-                </select>
+            <div class="form-barang">
+                <div class="form-group d-flex">
+                    <div class="col-md-6 pl-0">
+                        <label for="">Barang</label>
+
+                        <select name="barang_id[]"  data-live-search="true" class="form-control " id="barang_id">
+                            <option value="">--- Pilih Barang ---</option>
+                            @foreach ($barangs as $row)
+                            <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                            @endforeach
+                            </select>
+                    </div>
+
+                    <div class="col-md-6 pr-0">
+                        <label for="">Jumlah Barang</label>
+                        <input type="number" class="form-control" name="jumlah[]">
+                    </div>
+                    </div>
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="">Jumlah Barang</label>
                 <input type="number" class="form-control" name="jumlah" required="">
-            </div>
+            </div> --}}
             <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn btn-info btn-tambah-barang">Tambah barang</button>
         </form>
     </x-modal>
 
@@ -116,18 +148,8 @@
                 <label for="">Nama Proyek</label>
                 <input type="text" class="form-control" name="nama_proyek" required="">
             </div>
-            <div class="form-group">
-                <label for="">Barang</label>
-                <select name="barang_id" class="form-control">
-                    <option value="">--- Pilih Barang ---</option>
-                    @foreach ($barangs as $row)
-                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="">Jumlah Barang</label>
-                <input type="number" class="form-control" name="jumlah">
+            <div class="form-barang">
+
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
@@ -144,14 +166,86 @@
             $('.edit').click(function() {
                 const id = $(this).data('id')
 
-                $.get(`{{ route('admin.proyek.info') }}?id=${id}`, function(data) {
-                    $('#edit input[name="id"]').val(id)
-                    $('#edit input[name="nama_proyek"]').val(data.proyek.nama_proyek)
-                    $('#edit input[name="jumlah"]').val(data.proyek.jumlah)
-                    $(`#edit option[value="${data.barang.id}"]`).attr('selected', 'true')
+                $.ajax({
+                    url: `{{ route('admin.proyek.info') }}?id=${id}`,
+                    type: 'GET',
+                    success: function(data) {
+                        console.log(data);
+                        // console.log(data);
+                        $('.form-barang').html('')
+                        $('#edit input[name="nama_proyek"]').val(data.nama_proyek)
+                        var barId = 0;
+                        $.each(data.barang, function(index, value) {
+                            // console.log(value.id);
+                            barId = value.id;
+                            var string = '$id == "'+ value.id +'" ? "true"   : $id';
+                            console.log(string);
+                            var query = "$row->id == '"+ barId +"' ? selected : ''";
+                            console.log(query);
+                            var newQ = `{{`+ query + `}}`
+                            $('.form-barang').append(`
+                            <div class="form-group d-flex">
+                                <div class="col-md-6 pl-0">
+                                    <label for="">Barang</label>
+                                    <select name="barang_id[]"  data-live-search="true" class="form-control edit_select_`+value.id+`" id="barang_id">
+                                        <option value="">--- Pilih Barang ---</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-6 pr-0">
+                                    <label for="">Jumlah Barang</label>
+                                    <input type="number" class="form-control" value='${value.id}' name="jumlah[]">
+                                </div>
+                            </div>
+                            `)
+
+                            // $('.form-barang #barang_id option[value='+ barId+']').attr('selected', true);
+                            $.ajax({
+                                url: '/admin/barang-all',
+                                type: 'GET',
+                                success: function(data) {
+                                    $.each(data, function(k, v) {
+                                        console.log(value.id + ' ' +v.id);
+                                        // if ($('.edit_select_'+barId+'')) {
+                                            $('.edit_select_'+value.id+'')
+                                            .append($("<option></option>")
+                                                .attr("value", v.id)
+                                                .prop('selected', v.id == value.id ? true :false)
+                                                .text(v.nama));
+                                        // }
+                                    })
+                                }
+                            })
+                        })
+                    }
                 })
 
+
+
+
                 $('#edit').modal('show')
+            })
+
+            $('body').on('click', '.btn-tambah-barang', function() {
+                    $('.form-barang').append(`
+                    <div class="form-group d-flex">
+                        <div class="col-md-6 pl-0">
+                            <label for="">Barang</label>
+
+                            <select name="barang_id[]"  data-live-search="true" class="form-control " id="barang_id">
+                                <option value="">--- Pilih Barang ---</option>
+                                @foreach ($barangs as $row)
+                                <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                @endforeach
+                                </select>
+                        </div>
+
+                        <div class="col-md-6 pr-0">
+                            <label for="">Jumlah Barang</label>
+                            <input type="number" class="form-control" name="jumlah[]">
+                        </div>
+                        </div>`)
+
             })
 
             $('.delete').click(function(e) {
@@ -175,5 +269,11 @@
                 $('#daftar').DataTable();
             });
         </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').selectpicker();
+        });
+    </script>
     </x-slot>
 </x-app-layout>

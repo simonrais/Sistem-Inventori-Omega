@@ -14,6 +14,9 @@
     <link href="{{ asset('dist/vendor/swal2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('dist/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/css/ruang-admin.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
     {{ $head ?? '' }}
 </head>
 
@@ -76,17 +79,19 @@
     </a>
 
     <script src="{{ asset('dist/vendor/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <script src="{{ asset('dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dist/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('dist/js/ruang-admin.min.js') }}"></script>
     <script src="{{ asset('dist/vendor/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('dist/vendor/swal2/sweetalert2.min.js') }}"></script>
     {{ $script ?? '' }}
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
     @if (Auth::user()->roles[0]->name == 'Admin')
-        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
         <script type="text/javascript">
             const firebaseConfig = {
                 apiKey: "AIzaSyC_BVaU0Dk6mgT0-abwFS0Ccr3696Ms8jc",
@@ -149,6 +154,8 @@
                 // console.log('first')
                 // $('#list-all-notification').modal('show')
             })
+
+            $('.daterange').daterangepicker();
         </script>
     @endif
 

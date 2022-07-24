@@ -22,16 +22,19 @@ class CreateAdminUserSeeder extends Seeder
             'password' => bcrypt('admin')
         ]);
 
+
+
         $role = Role::create(['name' => 'Admin']);
 
         $new = Permission::create(['name' => 'proyek']);
-        $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::pluck('id', 'id')->all();
 
         $role->syncPermissions($permissions);
 
         $user->assignRole([$role->id]);
 
         $this->createAllRoles();
+
 
         $estimator = Role::create(['name' => 'Estimator']);
         $estimator->syncPermissions([$new->id]);
@@ -40,6 +43,6 @@ class CreateAdminUserSeeder extends Seeder
     public function createAllRoles()
     {
         $staffGudang = Role::create(['name' => 'Staff Gudang']);
-        $staffGudang->syncPermissions([13,14]);
+        $staffGudang->syncPermissions([13, 14]);
     }
 }
