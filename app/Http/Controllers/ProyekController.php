@@ -58,6 +58,42 @@ class ProyekController extends Controller
         return view('admin.proyek.index', compact('data', 'barangs', 'proyeks'), ['payload' => $payload]);
     }
 
+    public function indexEstimator(Proyek $proyek)
+    {
+        $barangs = Barang::get();
+        $proyeks = $proyek->with('user')->select('nama_proyek')->groupBy('nama_proyek')->get();
+        $jenisBarang = [];
+        $data = null;
+
+        if (request('filter_proyek')) {
+            $data = $proyek->where('nama_proyek', request('filter_proyek'))->get();
+        } else {
+            $data = $proyek->with('barang')->get();
+        }
+
+        $payload = [];
+        // KODE TAMBAHAN
+        foreach ($data as $key => $value) {
+            $i = 0;
+            $payload[$key]['nama_proyek'] = $value->nama_proyek;
+            $payload[$key]['barangs'] = json_decode($value->barang_id, true);
+            $payload[$key]['jumlah'] = json_decode($value->jumlah, true);
+            $payload[$key]['id'] = $value->id;
+            $payload[$key]['created_at'] = $value->created_at;
+            $payload[$key]['updated_at'] = $value->updated_at;
+            $payload[$key]['user_id'] = $value->user_id;
+            $payload[$key]['user'] = $value->user->name;
+
+            foreach ($payload[$key]['barangs'] as $keyi => $value) {
+                $payload[$key]['barangs'][$i] = Barang::find($value);
+                $i++;
+            }
+        }
+
+        // return $payload;
+        return view('admin.laporan.estimator', compact('data', 'barangs', 'proyeks'), ['payload' => $payload]);
+    }
+
     public function store(Proyek $proyek, Request $request)
     {
         $barang_id = [];

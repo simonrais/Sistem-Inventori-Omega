@@ -158,6 +158,7 @@
     <x-slot name="script">
         <script src="{{ asset('dist/vendor/datatables/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('dist/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
         <script>
             $('.add').click(function() {
                 $('#add').modal('show')
@@ -266,7 +267,14 @@
             })
 
             $(document).ready(function() {
-                $('#daftar').DataTable();
+                $('#daftar').DataTable({
+                    dom: 'Bfrtip',
+			        buttons: [
+			            'excelHtml5',
+			            'csvHtml5',
+			            'pdfHtml5'
+			        ]
+                });
             });
         </script>
 

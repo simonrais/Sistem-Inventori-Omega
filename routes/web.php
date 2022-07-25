@@ -101,7 +101,7 @@ Route::group([
 
     // laporan
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
-    Route::get('/laporan-estimator', [ProyekController::class, 'index'])->name('laporan.estimator');
+    Route::get('/laporan-estimator', [ProyekController::class, 'indexEstimator'])->name('laporan.estimator');
     Route::get('/filter-laporan', [LaporanController::class, 'filter'])->name('laporan.filter');
 });
 
