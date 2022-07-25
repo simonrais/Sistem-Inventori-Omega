@@ -15,8 +15,10 @@ class BarangFactory extends Factory
     {
         return [
             'kode' => strtoupper(\Str::random(2)),
+            'gudang_id' => 1,
+            'kategori_id' => 1,
             'nama' => $this->faker->word(),
-            'jumlah' => rand(10,60),
+            'jumlah' => rand(10, 60),
             'merk' => $this->faker->word(),
             'warna' => $this->faker->word(),
             'satuan' => $this->faker->word()

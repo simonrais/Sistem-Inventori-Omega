@@ -11,7 +11,7 @@ class Barang extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable = ['kode', 'nama', 'jumlah', 'gudang_id', 'kategori_id','merk', 'warna', 'satuan', 'image'];
+    protected $fillable = ['kode', 'nama', 'jumlah', 'gudang_id', 'kategori_id', 'merk', 'warna', 'satuan', 'image'];
 
     // log configuration
     protected static $logAttributes = ['kode', 'nama', 'jumlah', 'merk', 'warna', 'satuan'];
@@ -33,16 +33,16 @@ class Barang extends Model
 
     public function barang_masuks()
     {
-    	return $this->hasMany(BarangMasuk::class);
+        return $this->hasMany(BarangMasuk::class);
     }
 
     public function gudang()
     {
-    	return $this->belongsTo(Gudang::class);
+        return $this->belongsTo(Gudang::class);
     }
 
     public function kategori()
     {
-    	return $this->belongsTo(Kategori::class);
+        return $this->belongsTo(Kategori::class);
     }
 }

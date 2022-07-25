@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\{Barang, Gudang, Kategori};
 use Illuminate\Http\Request;
 use App\Http\Requests\BarangRequest;
-use DB;
+use Illuminate\Support\Facades\DB;
+
+// use DB;
 
 class BarangController extends Controller
 {
@@ -31,22 +33,25 @@ class BarangController extends Controller
         }
 
         $q = DB::table('barangs')->select(DB::raw('MAX(RIGHT(kode, 4)) as kod'));
-        $kd="";
-        if($q->count()>0)
-        {
-            foreach($q->get() as $k)
-            {
-                $tmp = ((int)$k->kod)+1;
+        $kd = "";
+        if ($q->count() > 0) {
+            foreach ($q->get() as $k) {
+                $tmp = ((int)$k->kod) + 1;
                 $kd = sprintf("%04s", $tmp);
-
             }
-        }
-        else
-        {
+        } else {
             $kd = "0001";
         }
 
+
         return view('admin.barang.index', compact('data', 'gudang', 'kategori', 'kd'));
+    }
+
+    // KODE TAMBAHAN
+    public function getAllBarang()
+    {
+        $data = Barang::all();
+        return response()->json($data);
     }
 
     public function store(Barang $barang, Gudang $gudang, BarangRequest $request)
@@ -55,13 +60,15 @@ class BarangController extends Controller
 
         $payload = $request->all();
 
-        $request->validate([
-            'file' => 'required|image|max:2048'
-        ],
-    [
-        'file.image' => 'File harus berupa gambar!
+        $request->validate(
+            [
+                'file' => 'required|image|max:2048'
+            ],
+            [
+                'file.image' => 'File harus berupa gambar!
         Silahkan Upload kembali'
-    ]);
+            ]
+        );
 
         if ($request->hasFile('file')) {
             $fileName = time() . '.' . $request->file->extension();

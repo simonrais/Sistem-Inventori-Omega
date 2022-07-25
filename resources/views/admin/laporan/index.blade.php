@@ -9,7 +9,16 @@
 	@endif
 
 	<x-card>
+        {{-- <style></style> --}}
 		<x-slot name="title">Semua Laporan</x-slot>
+        <div class="d-flex mb-2 justify-content-between">
+            <form class="col-md-8 d-flex" action="{{route('admin.laporan.index')}}" method="GET">
+                <label for="" class="col-md-1">Dari</label>
+                <input type="text" class="form-control form-control-sm col-md-4 daterange" name="tanggal">
+                <button class="btn btn-sm btn-success col-md-2 mx-3" type="submit">Cari</button>
+            </form>
+            <button class="btn btn-sm btn-info col-md-1" id="semua" type="button">Semua</button>
+        </div>
 		<div class="table-responsive">
 		<table class="table table-hover mb-3">
 			<thead>
@@ -28,12 +37,11 @@
 						<td>{{ $row->orang }}</td>
 						<td>{{ $row->harga }}</td>
 						<td>{{ $row->jumlah }}</td>
-						{{-- <td>{{ $row->berat }}kg</td> --}}
-						<td>{{ $row->created_at->format('d-m-Y') }}</td>
+						<td>{{ date('Y-m-d',strtotime($row->created_at)) }}</td>
 						<td><span class="badge badge-{{ ($row->jenis == 'Barang Masuk') ? 'success' : 'danger' }}">{{ $row->jenis }}</span></td>
 					</tr>
 				@endforeach
-				
+
 			</tbody>
 		</table>
 		</div>
@@ -59,7 +67,15 @@
 			            'pdfHtml5'
 			        ]
 			    } );
+
+                // $('.dataTables_filter').addClass('daterange')
 		    });
+
+            $('.daterange').daterangepicker();
+            $('#semua').on('click', function () {
+                var loc = location.href.split('?')[0];
+                location.href = loc;
+            })
 		</script>
 	</x-slot>
 </x-app-layout>

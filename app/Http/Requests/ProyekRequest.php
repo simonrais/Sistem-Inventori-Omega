@@ -26,7 +26,7 @@ class ProyekRequest extends FormRequest
         return [
             'nama_proyek' => 'required|string',
             'jumlah' => 'required|numeric|gt:0',
-            'barang_id' => 'required|numeric'
+            // 'barang_id[]' => 'required|numeric'
         ];
     }
 }

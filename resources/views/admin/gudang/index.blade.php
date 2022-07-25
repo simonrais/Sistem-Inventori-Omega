@@ -37,7 +37,7 @@
 						</td>
 					</tr>
 				@endforeach
-				
+
 			</tbody>
 		</table>
 		</div>
@@ -63,6 +63,12 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="">Nama Gudang</label>
+						<input type="text" class="form-control" name="nama" required="">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="">Jumlah Barang</label>
 						<input type="text" class="form-control" name="nama" required="">
 					</div>
 				</div>
@@ -130,6 +136,14 @@
 				: <span id="nama"></span>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<span>Jumlah Barang </span>
+			</div>
+			<div class="col-md-6">
+				: <span id="jmlBarang"></span>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-md-6">
@@ -148,25 +162,37 @@
 			$('.add').click(function() {
 				$('#add').modal('show')
 			})
+            var jmlBarang = 0;
 
 			$('.info').click(function() {
+                jmlBarang=0;
 				const id = $(this).data('id')
 
 				$.get(`{{ route('admin.gudang.info') }}?id=${id}`, function(data) {
+                    console.log(data);
+                    $.each(data.barangs, function(key, value) {
+                       jmlBarang += parseInt(value.jumlah)
+                    })
 					$('#nama').text(data.nama)
 					$('#kode').text(data.kode)
 					$('#catatan').text(data.catatan)
+					$('#jmlBarang').text(jmlBarang)
 				})
 
 				$('#info').modal('show')
 			})
 
 			$('.edit').click(function() {
+                jmlBarang=0;
 				const id = $(this).data('id')
 
 				$.get(`{{ route('admin.gudang.info') }}?id=${id}`, function(data) {
-					$('#edit input[name="id"]').val(id)
 
+                    $.each(data.barangs, function(key, value) {
+                       jmlBarang += value.jumlah
+                    })
+					$('#edit input[name="id"]').val(id)
+					$('#edit input[name="jmlBarang"]').val(jmlBarang)
 					$('#edit input[name="nama"]').val(data.nama)
 					$('#edit input[name="kode"]').val(data.kode)
 					$('#edit textarea[name="catatan"]').val(data.catatan)
@@ -187,7 +213,7 @@
 				}).then((result) => {
 					if (result.isConfirmed) {
 				  		$(this).parent().submit()
-					} 
+					}
 				})
 
 			})
