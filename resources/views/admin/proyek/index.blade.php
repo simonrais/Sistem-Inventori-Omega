@@ -143,7 +143,7 @@
 
         <form action="{{ route('admin.proyek.update') }}" method="post" id="edit" class="form-group">
             @csrf
-            <input type="hidden" name="id" value="">
+            <input type="hidden" id="id_proyek" name="id" value="">
             <div class="form-group">
                 <label for="">Nama Proyek</label>
                 <input type="text" class="form-control" name="nama_proyek" required="">
@@ -164,7 +164,8 @@
             })
 
             $('.edit').click(function() {
-                const id = $(this).data('id')
+                var id = $(this).data('id')
+                $('body #id_proyek').val(id)
 
                 $.ajax({
                     url: `{{ route('admin.proyek.info') }}?id=${id}`,
@@ -194,7 +195,7 @@
                                 </div>
                                 <div class="col-md-6 pr-0">
                                     <label for="">Jumlah Barang</label>
-                                    <input type="number" class="form-control" value='${value.id}' name="jumlah[]">
+                                    <input type="number" class="form-control" value='${data.jumlah[index]}' name="jumlah[]">
                                 </div>
                             </div>
                             `)
@@ -219,7 +220,6 @@
                         })
                     }
                 })
-
 
 
 

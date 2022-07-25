@@ -12,60 +12,56 @@ class GudangController extends Controller
     function __construct()
     {
         $this->middleware('permission:gudang', [
-            'only' => ['index','store', 'info', 'update', 'destroy']
+            'only' => ['index', 'store', 'info', 'update', 'destroy']
         ]);
     }
 
     public function index(Gudang $gudang)
     {
-    	$data = $gudang->all();
+        $data = $gudang->all();
 
         $q = DB::table('gudangs')->select(DB::raw('MAX(RIGHT(kode, 2)) as kod'));
-        $kd="";
-        if($q->count()>0)
-        {
-            foreach($q->get() as $k)
-            {
-                $tmp = ((int)$k->kod)+1;
+        $kd = "";
+        if ($q->count() > 0) {
+            foreach ($q->get() as $k) {
+                $tmp = ((int)$k->kod) + 1;
                 $kd = sprintf("%02s", $tmp);
-
             }
-        }
-        else
-        {
+        } else {
             $kd = "01";
         }
 
 
-    	return view('admin.gudang.index', compact('data', 'kd'));
+        return view('admin.gudang.index', compact('data', 'kd'));
     }
 
     public function store(Gudang $gudang, GudangRequest $request)
     {
-    	$gudang->create($request->all());
+        $gudang->create($request->all());
 
 
-    	return back()->with('success', 'Gudang berhasil ditambahkan');
+        return back()->with('success', 'Gudang berhasil ditambahkan');
     }
 
     public function info(Gudang $gudang)
     {
-    	return $gudang->find(request('id'));
+        // KODE TAMBAHAN
+        return $gudang->with('barangs')->find(request('id'));
     }
 
     public function update(Gudang $gudang, GudangRequest $request)
     {
-    	$gudang->find($request->id)->update($request->all());
+        $gudang->find($request->id)->update($request->all());
 
-    	return back();
+        return back();
     }
 
     public function destroy(Gudang $gudang, $id)
     {
-    	$data = $gudang->find($id);
+        $data = $gudang->find($id);
         Barang::where('gudang_id', $data->id)->delete();
         $data->delete();
 
-    	return back();
+        return back();
     }
 }

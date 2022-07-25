@@ -18,6 +18,7 @@ class ProyekController extends Controller
         $this->middleware('permission:proyek', [
             'only' => ['index', 'store', 'info', 'update', 'destroy']
         ]);
+        // UNCOMMENT KODE DIBAWAH
         // $this->database = \App\Services\FirebaseService::connect();
     }
 
@@ -35,7 +36,7 @@ class ProyekController extends Controller
         }
 
 
-        // FIXED
+        // KODE TAMBAHAN
         foreach ($data as $key => $value) {
             $i = 0;
             $payload[$key]['nama_proyek'] = $value->nama_proyek;
@@ -46,7 +47,7 @@ class ProyekController extends Controller
             $payload[$key]['updated_at'] = $value->updated_at;
             $payload[$key]['user_id'] = $value->user_id;
             $payload[$key]['user'] = $value->user->name;
-            // dd($payload[$key]);
+
             foreach ($payload[$key]['barangs'] as $keyi => $value) {
                 $payload[$key]['barangs'][$i] = Barang::find($value);
                 $i++;
@@ -65,24 +66,21 @@ class ProyekController extends Controller
         $payload['barang_id'] = json_encode($request['barang_id']);
         $payload['jumlah'] = json_encode($request['jumlah']);
         $result = $proyek->create($payload);
-        // return $payload;
 
         $jenisBarang = json_decode($result['barang_id'], true);
         foreach ($jenisBarang as $key => $value) {
-            # code...
             $barang[$key] = Barang::find($value);
         }
-        // }
+
         $jml = count($barang);
         $namaBarang = '';
         foreach ($barang as $key => $value) {
-            // dd($value);
-            // return $value->nama;
             $namaBarang .=  ' ' . $value->nama . ', ';
         }
 
         $id = $result->id;
         $title = "Penambahan kebutuhan barang {$namaBarang} dari proyek {$result->nama_proyek} ({$user->name})";
+        // UNCOMMENT KODE DIBAWAH JIKA SUDAH DIKOMPILASI
         // $this->database
         //     ->getReference('notication/proyek/' . $id)
         //     ->set([
@@ -100,8 +98,8 @@ class ProyekController extends Controller
 
     public function info(Proyek $proyek)
     {
+        // KODE TAMBAHAN
         $data = $proyek->find(request('id'));
-        // dd($data);
         $barang_id = json_decode($data->barang_id, true);
         $barang = [];
         $payload = [];
@@ -110,25 +108,22 @@ class ProyekController extends Controller
             $barang[$i] = Barang::find($value);
             $i++;
         }
-        // return $barang;
+
         $payload['nama_proyek'] = $data->nama_proyek;
         $payload['barang'] = $barang;
         $payload['jumlah'] = json_decode($data->jumlah, true);
         $payload['id'] = $data->id;
         return $payload;
-        // return [
-        //     'proyek' => $data,
-        //     'barang' => [
-        //         'id' => $barang->id,
-        //         'nama' => $barang->nama
-        //     ]
-        // ];
     }
 
-
-    public function update(Proyek $proyek, ProyekRequest $request)
+    // KODE TAMBAHAN
+    public function update(Proyek $proyek, Request $request)
     {
-        $proyek->find($request->id)->update($request->all());
+        $payload = $request->all();
+        $payload['barang_id'] = json_encode($request['barang_id']);
+        $payload['jumlah'] = json_encode($request['jumlah']);
+        // dd($request);
+        $proyek->find($payload['id'])->update($payload);
 
         return back();
     }
