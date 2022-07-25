@@ -35,7 +35,7 @@ class ProyekController extends Controller
             $data = $proyek->with('barang')->get();
         }
 
-
+        $payload = [];
         // KODE TAMBAHAN
         foreach ($data as $key => $value) {
             $i = 0;
