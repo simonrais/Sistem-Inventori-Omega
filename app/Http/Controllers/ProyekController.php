@@ -19,7 +19,7 @@ class ProyekController extends Controller
             'only' => ['index', 'store', 'info', 'update', 'destroy']
         ]);
         // UNCOMMENT KODE DIBAWAH
-        // $this->database = \App\Services\FirebaseService::connect();
+        $this->database = \App\Services\FirebaseService::connect();
     }
 
     public function index(Proyek $proyek)
@@ -81,17 +81,17 @@ class ProyekController extends Controller
         $id = $result->id;
         $title = "Penambahan kebutuhan barang {$namaBarang} dari proyek {$result->nama_proyek} ({$user->name})";
         // UNCOMMENT KODE DIBAWAH JIKA SUDAH DIKOMPILASI
-        // $this->database
-        //     ->getReference('notication/proyek/' . $id)
-        //     ->set([
-        //         'user' => $user->name,
-        //         'id' => $id,
-        //         'title' => $title,
-        //         'isRead' => 'no',
-        //         'nama_barang' => $barang->nama,
-        //         'jumlah' => $result->jumlah,
-        //         'created_at' => time()
-        //     ]);
+        $this->database
+            ->getReference('notication/proyek/' . $id)
+            ->set([
+                'user' => $user->name,
+                'id' => $id,
+                'title' => $title,
+                'isRead' => 'no',
+                'nama_barang' => $barang->nama,
+                'jumlah' => $result->jumlah,
+                'created_at' => time()
+            ]);
 
         return back()->with('success', 'Data berhasil ditambahkan');
     }

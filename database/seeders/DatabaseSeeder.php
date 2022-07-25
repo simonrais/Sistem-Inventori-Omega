@@ -17,21 +17,21 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        // $this->call([
-        //     PermissionTableSeeder::class,
-        //     CreateAdminUserSeeder::class,
-        //     KategoriSeeder::class,
-        //     RiwayatSeeder::class,
-        // ]);
+        $this->call([
+            PermissionTableSeeder::class,
+            CreateAdminUserSeeder::class,
+            KategoriSeeder::class,
+            RiwayatSeeder::class,
+        ]);
 
-        // $user = User::create([
-        //     'name' => 'estimator',
-        //     'username' => 'estimator',
-        //     'password' => bcrypt('user')
-        // ]);
+        $user = User::create([
+            'name' => 'estimator',
+            'username' => 'estimator',
+            'password' => bcrypt('user')
+        ]);
 
-        // $user->assignRole('estimator');
-        // Gudang::factory(10)->create();
+        $user->assignRole('estimator');
+        Gudang::factory(10)->create();
         Barang::factory(10)->create();
     }
 }
