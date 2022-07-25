@@ -59,12 +59,24 @@ class ProyekController extends Controller
 
     public function store(Proyek $proyek, Request $request)
     {
-
+        $barang_id = [];
+        $jumlah = [];
+        foreach ($request['barang_id'] as $key => $value) {
+            if ($value != null) {
+                $barang_id[$key] = $value;
+            }
+        }
+        foreach ($request['jumlah'] as $key => $value) {
+            if ($value != null) {
+                $jumlah[$key] = $value;
+            }
+        }
+        // return $test;
         $user = Auth::user();
         $payload = $request->all();
         $payload['user_id'] = $user->id;
-        $payload['barang_id'] = json_encode($request['barang_id']);
-        $payload['jumlah'] = json_encode($request['jumlah']);
+        $payload['barang_id'] = json_encode($barang_id);
+        $payload['jumlah'] = json_encode($jumlah);
         $result = $proyek->create($payload);
 
         $jenisBarang = json_decode($result['barang_id'], true);

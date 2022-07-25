@@ -110,7 +110,7 @@
                     <div class="col-md-6 pl-0">
                         <label for="">Barang</label>
 
-                        <select name="barang_id[]"  data-live-search="true" class="form-control " id="barang_id">
+                        <select name="barang_id[]"  data-live-search="true" class="form-control " id="barang_id" required>
                             <option value="">--- Pilih Barang ---</option>
                             @foreach ($barangs as $row)
                             <option value="{{ $row->id }}">{{ $row->nama }}</option>
@@ -120,7 +120,7 @@
 
                     <div class="col-md-6 pr-0">
                         <label for="">Jumlah Barang</label>
-                        <input type="number" class="form-control" name="jumlah[]">
+                        <input type="number" class="form-control" name="jumlah[]" required>
                     </div>
                     </div>
             </div>
