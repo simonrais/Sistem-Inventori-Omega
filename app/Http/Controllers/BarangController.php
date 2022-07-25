@@ -26,10 +26,9 @@ class BarangController extends Controller
         $data = null;
 
         if (request('filter_gudang')) {
-            $data = $barang->where('gudang_id', request('filter_gudang'))->get();
+            $data = $barang->with('kategori')->where('gudang_id', request('filter_gudang'))->get();
         } else {
-
-            $data = $barang->all();
+            $data = $barang->with('kategori')->get();
         }
 
         $q = DB::table('barangs')->select(DB::raw('MAX(RIGHT(kode, 4)) as kod'));
@@ -43,6 +42,7 @@ class BarangController extends Controller
             $kd = "0001";
         }
 
+        // return $data->kategori->nama;
 
         return view('admin.barang.index', compact('data', 'gudang', 'kategori', 'kd'));
     }

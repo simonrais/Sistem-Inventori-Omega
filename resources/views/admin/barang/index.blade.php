@@ -6,7 +6,7 @@
     @endif
 
     @error('file')
-    <x-alert type="danger" message="{{ $message }}" />         
+    <x-alert type="danger" message="{{ $message }}" />
     @enderror
 
     <x-card>
@@ -37,7 +37,7 @@
                         <th>Kategori Barang</th>
                         <th>Nama Barang</th>
                         <th>Jumlah Barang</th>
-                        <th>Satuan Barang</th>  
+                        <th>Satuan Barang</th>
                         <th>Merk Barang</th>
                         <th>Warna Barang</th>
                         <th style="width: 10%">Action</th>
@@ -51,7 +51,7 @@
                                     width="50" alt="">
                             </td>
                             <td>{{ $row->kode }}</td>
-                            <td>{{ $row->kategori->nama }}</td>
+                            <td>{{ $data[0]->kategori->nama }}</td>
                             <td>{{ $row->nama }}</td>
                             <td>{{ $row->jumlah }}</td>
                             <td>{{ $row->satuan }}</td>
@@ -145,7 +145,7 @@
                         <input type="text" class="form-control" name="satuan" required="">
                     </div>
                 </div>
-            
+
             </div>
             <div class="form-group">
                 <label for="">Gambar</label>
@@ -224,13 +224,13 @@
                         <input type="text" class="form-control" name="satuan" required="">
                     </div>
                 </div>
-            
+
             </div>
 
             <div class="form-group">
                 <label for="">Gambar</label>
                 <input type="file" class="form-control file" name="file">
-        
+
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
@@ -347,7 +347,7 @@
                     $('#warna').text(data.barang.warna)
                     $('#satuan').text(data.barang.satuan)
                     $('#tgl').text(new Date(data.barang.created_at).toLocaleString())
-                    
+
                 })
 
                 $('#info').modal('show')
@@ -358,7 +358,7 @@
 
                 $.get(`{{ route('admin.barang.info') }}?id=${id}`, function(data) {
                     $('#edit input[name="id"]').val(id)
-                    
+
                     $('#edit input[name="nama"]').val(data.barang.nama)
                     $('#edit input[name="kode"]').val(data.barang.kode)
                     $('#edit input[name="jumlah"]').val(data.barang.jumlah)
@@ -367,7 +367,7 @@
                     $('#edit input[name="satuan"]').val(data.barang.satuan)
                     $(`#edit option[value="${data.gudang.id}"]`).attr('selected', 'true')
                     $(`#edit option[value="${data.barang.kategori_id}"]`).attr('selected', 'true')
-                    
+
                 })
 
                 $('#edit').modal('show')

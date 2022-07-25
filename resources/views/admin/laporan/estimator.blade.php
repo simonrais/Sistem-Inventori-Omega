@@ -30,15 +30,11 @@
             <table class="display table table-striped table-hover" id="daftar">
                 <thead>
                     <tr>
-                        @if (Auth::user()->roles[0]->name == 'Admin')
-                            <th>Estimator</th>
-                        @endif
+
                         <th>Nama Proyek</th>
                         <th>Nama Barang</th>
                         <th>Jumlah Barang</th>
-                        @if (Auth::user()->roles[0]->name == 'Estimator')
-                            <th style="width: 10%">Action</th>
-                        @endif
+
                     </tr>
                 </thead>
                 <tbody>
@@ -47,9 +43,7 @@
                     @endphp
                     @foreach ($payload as $row)
                         <tr>
-                            @if (Auth::user()->roles[0]->name == 'Admin')
-                                <td>{{$payload[$i]['user'] }}</td>
-                            @endif
+
                             <td >{{ $payload[$i]['nama_proyek'] }}</td>
                             <td>
                                 <ul>
@@ -66,18 +60,7 @@
                                 </ul>
 
                             </td>
-                            @if (Auth::user()->roles[0]->name == 'Estimator')
-                                <td class="text-center" >
-                                    <button class="btn btn-sm btn-primary edit" data-id="{{ $payload[$i]['id'] }}"><i
-                                            class="fas fa-edit"></i></button>
-                                    <form action="{{ route('admin.proyek.destroy', $payload[$i]['id']) }}"
-                                        style="display: inline-block;" method="POST">
-                                        @csrf
-                                        <button type="button" class="btn btn-sm btn-danger delete"><i
-                                                class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            @endif
+
                         </tr>
 
 
@@ -266,7 +249,14 @@
             })
 
             $(document).ready(function() {
-                $('#daftar').DataTable();
+                $('#daftar').DataTable({
+                    dom: 'Bfrtip',
+			        buttons: [
+			            'excelHtml5',
+			            'csvHtml5',
+			            'pdfHtml5'
+			        ]
+                });
             });
         </script>
 

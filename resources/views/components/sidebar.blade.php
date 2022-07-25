@@ -62,4 +62,9 @@
 
     <x-nav-link text="Laporan" icon="file" url="{{ route('admin.laporan.index') }}"
         active="{{ request()->routeIs('admin.laporan.index') ? ' active' : '' }}" />
+
+    @if (Auth::user()->roles->name = 'Estimator')
+    <x-nav-link text="Laporan Proyek" icon="file" url="{{ route('admin.laporan.estimator') }}"
+    active="{{ request()->routeIs('admin.laporan.estimator') ? ' active' : '' }}" />
+    @endif
 </ul>

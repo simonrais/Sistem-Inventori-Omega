@@ -25,7 +25,7 @@ class ProyekController extends Controller
     public function index(Proyek $proyek)
     {
         $barangs = Barang::get();
-        $proyeks = $proyek->select('nama_proyek')->groupBy('nama_proyek')->get();
+        $proyeks = $proyek->with('user')->select('nama_proyek')->groupBy('nama_proyek')->get();
         $jenisBarang = [];
         $data = null;
 
@@ -54,6 +54,7 @@ class ProyekController extends Controller
             }
         }
 
+        // return $payload;
         return view('admin.proyek.index', compact('data', 'barangs', 'proyeks'), ['payload' => $payload]);
     }
 

@@ -136,23 +136,23 @@
 				: <span id="nama"></span>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<span>Jumlah Barang </span>
-			</div>
-			<div class="col-md-6">
-				: <span id="jmlBarang"></span>
-			</div>
-		</div>
 
 		<div class="row">
-			<div class="col-md-6">
-				<span>Catatan</span>
+            <div class="col-md-6">
+                <span>Catatan</span>
 			</div>
 			<div class="col-md-6">
 				: <span id="catatan"></span>
 			</div>
 		</div>
+        <div class="row">
+            <div class="col-md-6">
+                <span>Jumlah Barang </span>
+            </div>
+            <div class="col-md-6" id="detail_brg">
+
+            </div>
+        </div>
 	</x-modal>
 
 	<x-slot name="script">
@@ -171,12 +171,17 @@
 				$.get(`{{ route('admin.gudang.info') }}?id=${id}`, function(data) {
                     console.log(data);
                     $.each(data.barangs, function(key, value) {
-                       jmlBarang += parseInt(value.jumlah)
+                    //    jmlBarang += parseInt(value.jumlah)
+                        $('#detail_brg').append(`<tr>
+                            <td>${value.nama} </td>
+                            <td>&nbsp;:&nbsp;&nbsp;${value.jumlah} (${value.satuan})</td>
+                            </tr>
+                            `)
                     })
 					$('#nama').text(data.nama)
 					$('#kode').text(data.kode)
 					$('#catatan').text(data.catatan)
-					$('#jmlBarang').text(jmlBarang)
+					// $('#jmlBarang').text(jmlBarang)
 				})
 
 				$('#info').modal('show')
