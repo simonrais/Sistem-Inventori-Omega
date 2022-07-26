@@ -137,7 +137,7 @@ class ProyekController extends Controller
                 'id' => $id,
                 'title' => $title,
                 'isRead' => 'no',
-                'nama_barang' => $barang->nama,
+                'nama_barang' => $namaBarang,
                 'jumlah' => $result->jumlah,
                 'created_at' => time()
             ]);

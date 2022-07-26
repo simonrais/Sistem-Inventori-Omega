@@ -51,7 +51,7 @@
                                     width="50" alt="">
                             </td>
                             <td>{{ $row->kode }}</td>
-                            <td>{{ $data[0]->kategori->nama }}</td>
+                            <td>{{ $row->kategori->nama }}</td>
                             <td>{{ $row->nama }}</td>
                             <td>{{ $row->jumlah }}</td>
                             <td>{{ $row->satuan }}</td>
