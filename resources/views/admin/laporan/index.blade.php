@@ -11,10 +11,19 @@
 	<x-card>
         {{-- <style></style> --}}
 		<x-slot name="title">Semua Laporan</x-slot>
-        <div class="d-flex mb-2 justify-content-between">
+        <div class="d-flex mb-2 justify-content-between p-0">
             <form class="col-md-8 d-flex" action="{{route('admin.laporan.index')}}" method="GET">
+                @if (Auth::user()->roles[0]->name == 'Admin')
                 <label for="" class="col-md-1">Dari</label>
                 <input type="text" class="form-control form-control-sm col-md-4 daterange" name="tanggal">
+                @endif
+
+                <label for="" class="col-md-1 text-start p-0">Kategori</label>
+                <select class="form-control form-control-sm col-md-4" name="kategori">
+                    <option value="">-- pilih Jenis --</option>
+                    <option value="masuk">Barang Masuk</option>
+                    <option value="keluar">Barang Keluar</option>
+                </select>
                 <button class="btn btn-sm btn-success col-md-2 mx-3" type="submit">Cari</button>
             </form>
             <button class="btn btn-sm btn-info col-md-1" id="semua" type="button">Semua</button>
@@ -26,7 +35,6 @@
 				<th>Proyek</th>
 				<th>Harga</th>
 				<th>Stok</th>
-				{{-- <th>Berat</th> --}}
 				<th>Tanggal</th>
 				<th>Aksi</th>
 			</thead>
@@ -38,7 +46,7 @@
 						<td>{{ $row->harga }}</td>
 						<td>{{ $row->jumlah }}</td>
 						<td>{{ date('Y-m-d',strtotime($row->created_at)) }}</td>
-						<td><span class="badge badge-{{ ($row->jenis == 'Barang Masuk') ? 'success' : 'danger' }}">{{ $row->jenis }}</span></td>
+						<td><span class="badge badge-{{ ($row->jenis == 'masuk') ? 'success' : 'danger' }}">{{ $row->jenis }}</span></td>
 					</tr>
 				@endforeach
 

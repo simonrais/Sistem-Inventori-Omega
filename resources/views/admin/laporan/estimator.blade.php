@@ -14,15 +14,13 @@
                     Filter Proyek
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a href="{{ route('admin.proyek.index') }}" class="dropdown-item">Semua Proyek</a>
+                    <a href="{{ route('admin.laporan.estimator') }}" class="dropdown-item">Semua Proyek</a>
                     @foreach ($proyeks as $row)
                         <a class="dropdown-item"
-                            href="{{ route('admin.proyek.index') }}?filter_proyek={{ $row->nama_proyek }}">{{ $row->nama_proyek }}</a>
+                            href="{{ route('admin.laporan.estimator') }}?filter_proyek={{ $row->nama_proyek }}">{{ $row->nama_proyek }}</a>
                     @endforeach
                 </div>
-                @if (Auth::user()->roles[0]->name == 'Estimator')
-                    <button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah</button>
-                @endif
+
             </div>
         </x-slot>
 
@@ -30,15 +28,11 @@
             <table class="display table table-striped table-hover" id="daftar">
                 <thead>
                     <tr>
-                        @if (Auth::user()->roles[0]->name == 'Admin')
-                            <th>Estimator</th>
-                        @endif
+
                         <th>Nama Proyek</th>
                         <th>Nama Barang</th>
                         <th>Jumlah Barang</th>
-                        @if (Auth::user()->roles[0]->name == 'Estimator')
-                            <th style="width: 10%">Action</th>
-                        @endif
+
                     </tr>
                 </thead>
                 <tbody>
@@ -47,9 +41,7 @@
                     @endphp
                     @foreach ($payload as $row)
                         <tr>
-                            @if (Auth::user()->roles[0]->name == 'Admin')
-                                <td>{{$payload[$i]['user'] }}</td>
-                            @endif
+
                             <td >{{ $payload[$i]['nama_proyek'] }}</td>
                             <td>
                                 <ul>
@@ -58,26 +50,14 @@
                                     @endforeach
                                 </ul>
                             </td>
-                            <td>
+                            <td >
                                 <ul>
                                     @foreach ($payload[$i]['jumlah'] as $item )
                                         <li>{{ $item }} </li>
                                     @endforeach
                                 </ul>
-
                             </td>
-                            @if (Auth::user()->roles[0]->name == 'Estimator')
-                                <td class="text-center" >
-                                    <button class="btn btn-sm btn-primary edit" data-id="{{ $payload[$i]['id'] }}"><i
-                                            class="fas fa-edit"></i></button>
-                                    <form action="{{ route('admin.proyek.destroy', $payload[$i]['id']) }}"
-                                        style="display: inline-block;" method="POST">
-                                        @csrf
-                                        <button type="button" class="btn btn-sm btn-danger delete"><i
-                                                class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            @endif
+
                         </tr>
 
 
@@ -158,8 +138,22 @@
     <x-slot name="script">
         <script src="{{ asset('dist/vendor/datatables/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('dist/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-
+        <script src="{{ asset('dist/vendor/datatables/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ asset('dist/vendor/datatables/jszip.min.js') }}"></script>
+		<script src="{{ asset('dist/vendor/datatables/pdfmake.min.js') }}"></script>
+		<script src="{{ asset('dist/vendor/datatables/vfs_fonts.js') }}"></script>
+		<script src="{{ asset('dist/vendor/datatables/buttons.html5.min.js') }}"></script>
         <script>
+             $(document).ready(function() {
+                $('#daftar').DataTable({
+                    dom: 'Bfrtip',
+			        buttons: [
+			            'excelHtml5',
+			            'csvHtml5',
+			            'pdf'
+			        ]
+                });
+            });
             $('.add').click(function() {
                 $('#add').modal('show')
             })
@@ -266,16 +260,7 @@
 
             })
 
-            $(document).ready(function() {
-                $('#daftar').DataTable({
-                    dom: 'Bfrtip',
-			        buttons: [
-			            'excelHtml5',
-			            'csvHtml5',
-			            'pdfHtml5'
-			        ]
-                });
-            });
+
         </script>
 
     <script type="text/javascript">
