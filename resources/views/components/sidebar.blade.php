@@ -60,12 +60,12 @@
             active="{{ request()->routeIs('admin.proyek.index') ? ' active' : '' }}" />
     @endcan
 
-    @if (Auth::user()->roles[0]->name == 'Admin')
+    @if (Auth::user()->roles[0]->name == 'Admin' || Auth::user()->roles[0]->name == 'Staff Gudang')
     <x-nav-link text="Laporan" icon="file" url="{{ route('admin.laporan.index') }}"
         active="{{ request()->routeIs('admin.laporan.index') ? ' active' : '' }}" />
     @endif
 
-    @if (Auth::user()->roles[0]->name == 'Estimator' || Auth::user()->roles[0]->name == 'Staff Gudang' )
+    @if (Auth::user()->roles[0]->name == 'Estimator'  )
     <x-nav-link text="Laporan Proyek" icon="file" url="{{ route('admin.laporan.estimator') }}"
     active="{{ request()->routeIs('admin.laporan.estimator') ? ' active' : '' }}" />
     @endif
