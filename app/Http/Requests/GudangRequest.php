@@ -24,7 +24,6 @@ class GudangRequest extends FormRequest
     public function rules()
     {
         return [
-            'kode' => 'required|string|unique:gudangs',
             'nama' => 'required|string',
             'catatan' => 'nullable|string'
         ];
