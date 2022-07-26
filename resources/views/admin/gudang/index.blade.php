@@ -67,12 +67,12 @@
 						<input type="text" class="form-control" name="nama" required="">
 					</div>
 				</div>
-				<div class="col-md-6">
+				{{-- <div class="col-md-6">
 					<div class="form-group">
 						<label for="">Jumlah Barang</label>
 						<input type="text" class="form-control" name="jumlah" required="">
 					</div>
-				</div>
+				</div> --}}
 			</div>
 			<div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
