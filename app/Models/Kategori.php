@@ -24,4 +24,8 @@ class Kategori extends Model
     {
         return "You have {$eventName} kategori";
     }
+    public function barang()
+    {
+    	return $this-> hasMany(Barang::class);
+    }
 }

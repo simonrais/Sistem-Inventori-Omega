@@ -120,10 +120,7 @@
             $(document).ready(function() {
                 $('#daftar').DataTable();
             });
-            public function barang()
-                {
-                    return $this-> hasMany(Barang::class);
-                }
+            
         </script>
     </x-slot>
 </x-app-layout>
