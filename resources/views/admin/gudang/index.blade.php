@@ -51,8 +51,9 @@
 		<x-slot name="id">add</x-slot>
 
 
-		<form action="{{ route('admin.gudang.store') }}" method="post" class="form-group">
+		<form action="{{ route('admin.gudang.update', $kd) }}" method="post" class="form-group">
 			@csrf
+            @method('PUT')
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
@@ -69,7 +70,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="">Jumlah Barang</label>
-						<input type="text" class="form-control" name="nama" required="">
+						<input type="text" class="form-control" name="jumlah" required="">
 					</div>
 				</div>
 			</div>

@@ -30,7 +30,76 @@
         </div>
 		<div class="table-responsive">
 		<table class="table table-hover mb-3">
-			<thead>
+            @if ($kategori != 'keluar' )
+            <thead>
+                <th>Gambar</th>
+                <th>Supplier</th>
+                <th>Nama Barang</th>
+                <th>Harga</th>
+                <th>Stok</th>
+                <th>Total</th>
+                <th>Tgl Masuk</th>
+                <th style="width: 10%">Action</th>
+            </thead>
+            <tbody>
+                @foreach ($data as $row)
+                    <tr>
+                        <td>
+                            <img src={{ $row->barang->image ?? 'https://bitsofco.de/content/images/2018/12/broken-1.png' }}
+                                width="50" alt="">
+                        </td>
+                        <td>{{ $row->supplier->nama }}</td>
+                        <td>{{ $row->barang->nama }}</td>
+                        <td>Rp. {{ number_format($row->harga, 0)  }}</td>
+                        <td>{{ $row->jumlah }}</td>
+                        <td>Rp. {{ number_format($row->harga * $row->jumlah, 0)}}</td>
+                        <td>{{ date('d-F-Y', strtotime($row->tgl_brg_masuk)) }}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-primary edit" data-id="{{ $row->id }}"><i
+                                    class="fas fa-edit"></i></button>
+                            <form action="{{ route('admin.barang-masuk.destroy', $row->id) }}"
+                                style="display: inline-block;" method="POST">
+                                @csrf
+                                <button type="button" class="btn btn-sm btn-danger delete"><i
+                                        class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+            @elseif ($kategori == 'keluar')
+            <thead>
+				<th>Gambar</th>
+				<th>Proyek</th>
+				<th>Nama Barang</th>
+				<th>Stok Keluar</th>
+				<th>Tgl Keluar</th>
+				<th style="width: 10%">Action</th>
+			</thead>
+			<tbody>
+				@foreach ($data as $row)
+					<tr>
+                        <td>
+                            <img src={{ $row->barang->image ?? 'https://bitsofco.de/content/images/2018/12/broken-1.png' }}
+                                width="50" alt="">
+                        </td>
+						<td>{{ $row->proyek->nama_proyek }}</td>
+						<td>{{ $row->barang->nama }}</td>
+						<td>{{ $row->jumlah }}</td>
+						<td>{{ date('d-F-Y', strtotime($row->tgl_brg_keluar)) }}</td>
+						<td class="text-center">
+							<button class="btn btn-sm btn-primary edit" data-id="{{ $row->id }}"><i class="fas fa-edit"></i></button>
+							<form action="{{ route('admin.barang-keluar.destroy', $row->id) }}" style="display: inline-block;" method="POST">
+							@csrf
+							<button type="button" class="btn btn-sm btn-danger delete"><i class="fas fa-trash"></i></button>
+						</form>
+						</td>
+					</tr>
+				@endforeach
+
+			</tbody>
+            @endif
+			{{-- <thead>
 				<th>Nama Barang</th>
 				<th>Proyek</th>
 				<th>Harga</th>
@@ -50,7 +119,7 @@
 					</tr>
 				@endforeach
 
-			</tbody>
+			</tbody> --}}
 		</table>
 		</div>
 	</x-card>
