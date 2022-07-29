@@ -104,6 +104,7 @@
             <div class="form-group">
                 <label for="">Nama Proyek</label>
                 <input type="text" class="form-control" name="nama_proyek" required="">
+                {{-- <select name="nama_proyek" id=""></select> --}}
             </div>
             <div class="form-barang">
                 <div class="form-group d-flex">
@@ -151,8 +152,10 @@
             <div class="form-barang">
 
             </div>
+            <button type="button" class="btn btn-info btn-tambah-barang">Tambah barang</button>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
+
     </x-modal>
 
     <x-slot name="script">
