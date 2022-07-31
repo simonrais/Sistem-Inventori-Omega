@@ -174,7 +174,7 @@ class ProyekController extends Controller
         // dd($request);
         $proyek->find($payload['id'])->update($payload);
 
-        return back();
+        return back()->with('success', 'Data berhasil diupdate');
     }
 
     public function destroy(Proyek $proyek, $id)

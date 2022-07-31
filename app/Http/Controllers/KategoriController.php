@@ -38,7 +38,7 @@ class KategoriController extends Controller
     {
         $kategori->find($request->id)->update($request->all());
 
-        return back();
+        return back()->with('success', 'Data berhasil diupdate');;
     }
 
     public function destroy(Kategori $kategori, $id)

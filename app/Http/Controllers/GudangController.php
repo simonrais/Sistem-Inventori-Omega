@@ -53,7 +53,7 @@ class GudangController extends Controller
     {
         $gudang->find($request->id)->update($request->all());
 
-        return back();
+        return back()->with('success', 'Data berhasil diupdate');
     }
 
     public function destroy(Gudang $gudang, $id)
