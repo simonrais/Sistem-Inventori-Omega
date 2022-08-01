@@ -18,7 +18,7 @@
                 <input type="text" class="form-control form-control-sm col-md-4 daterange" name="tanggal">
                 @endif
 
-                <label for="" class="col-md-1 text-start p-0">Kategori</label>
+                <label for="" class="col-md-2">Kategori</label>
                 <select class="form-control form-control-sm col-md-4" name="kategori">
                     <option value="">-- pilih Jenis --</option>
                     <option value="masuk">Barang Masuk</option>
