@@ -20,7 +20,7 @@
 
                 <label for="" class="col-md-2">Kategori</label>
                 <select class="form-control form-control-sm col-md-4" name="kategori">
-                    <option value="">-- pilih Jenis --</option>
+                    <option value="">-- Pilih Jenis --</option>
                     <option value="masuk">Barang Masuk</option>
                     <option value="keluar">Barang Keluar</option>
                 </select>

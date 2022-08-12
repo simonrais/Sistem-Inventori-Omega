@@ -148,8 +148,8 @@
                 $('#daftar').DataTable({
                     dom: 'Bfrtip',
 			        buttons: [
-			            'excelHtml5',
-			            'csvHtml5',
+			            // 'excelHtml5',
+			            // 'csvHtml5',
 			            'pdf'
 			        ]
                 });

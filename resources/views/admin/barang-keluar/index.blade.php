@@ -19,6 +19,7 @@
 				<th>Nama Barang</th>
 				<th>Stok Keluar</th>
 				<th>Tgl Keluar</th>
+				{{-- <th>Catatan</th> --}}
 				<th style="width: 10%">Action</th>
 			</thead>
 			<tbody>
@@ -32,6 +33,7 @@
 						<td>{{ $row->barang->nama }}</td>
 						<td>{{ $row->jumlah }}</td>
 						<td>{{ date('d-F-Y', strtotime($row->tgl_brg_keluar)) }}</td>
+						{{-- <td>{{ $row->catatan }}</td> --}}
 						<td class="text-center">
 							<button class="btn btn-sm btn-primary edit" data-id="{{ $row->id }}"><i class="fas fa-edit"></i></button>
 							<form action="{{ route('admin.barang-keluar.destroy', $row->id) }}" style="display: inline-block;" method="POST">

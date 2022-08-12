@@ -128,7 +128,7 @@ class ProyekController extends Controller
         }
 
         $id = $result->id;
-        $title = "Penambahan kebutuhan barang {$namaBarang} dari proyek {$result->nama_proyek} ({$user->name})";
+        $title = "Penambahan kebutuhan barang dari proyek {$result->nama_proyek} ({$user->name})";
         // UNCOMMENT KODE DIBAWAH JIKA SUDAH DIKOMPILASI
         $this->database
             ->getReference('notication/proyek/' . $id)

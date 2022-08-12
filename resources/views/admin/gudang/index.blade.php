@@ -74,9 +74,9 @@
 					</div>
 				</div> --}}
 			</div>
-			<div class="form-group">
+			{{-- <div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
-			</div>
+			</div> --}}
 			<button type="submit" class="btn btn-primary">Simpan</button>
 		</form>
 	</x-modal>
@@ -106,9 +106,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
+			{{-- <div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
-			</div>
+			</div> --}}
 			<button type="submit" class="btn btn-primary">Simpan</button>
 		</form>
 	</x-modal>
@@ -138,14 +138,14 @@
 			</div>
 		</div>
 
-		<div class="row">
+		{{-- <div class="row">
             <div class="col-md-6">
                 <span>Catatan</span>
 			</div>
 			<div class="col-md-6">
 				: <span id="catatan"></span>
 			</div>
-		</div>
+		</div> --}}
         <div class="row">
             <div class="col-md-6">
                 <span>Jumlah Barang </span>
@@ -181,7 +181,7 @@
                     })
 					$('#nama').text(data.nama)
 					$('#kode').text(data.kode)
-					$('#catatan').text(data.catatan)
+					// $('#catatan').text(data.catatan)
 					// $('#jmlBarang').text(jmlBarang)
 				})
 
@@ -201,7 +201,7 @@
 					$('#edit input[name="jmlBarang"]').val(jmlBarang)
 					$('#edit input[name="nama"]').val(data.nama)
 					$('#edit input[name="kode"]').val(data.kode)
-					$('#edit textarea[name="catatan"]').val(data.catatan)
+					// $('#edit textarea[name="catatan"]').val(data.catatan)
 				})
 
 				$('#edit').modal('show')

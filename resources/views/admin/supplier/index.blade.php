@@ -68,9 +68,9 @@
 				<label for="">Telepon</label>
 				<input type="text" class="form-control" name="telepon" required="">
 			</div>
-			<div class="form-group">
+			{{-- <div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
-			</div>
+			</div> --}}
 			<button type="submit" class="btn btn-primary">Simpan</button>
 		</form>
 	</x-modal>
@@ -104,9 +104,9 @@
 				<label for="">Telepon</label>
 				<input type="text" class="form-control" name="telepon" required="">
 			</div>
-			<div class="form-group">
+			{{-- <div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
-			</div>
+			</div> --}}
 			<button type="submit" class="btn btn-primary">Simpan</button>
 		</form>
 	</x-modal>
@@ -145,14 +145,14 @@
 			</div>
 		</div>
 
-		<div class="row">
+		{{-- <div class="row">
 			<div class="col-md-6">
 				<span>Catatan</span>
 			</div>
 			<div class="col-md-6">
 				: <span id="catatan"></span>
 			</div>
-		</div>
+		</div> --}}
 	</x-modal>
 
 	<x-slot name="script">
@@ -170,7 +170,7 @@
 					$('#nama').text(data.nama)
 					$('#alamat').text(data.alamat)
 					$('#telepon').text(data.telepon)
-					$('#catatan').text(data.catatan)
+					// $('#catatan').text(data.catatan)
 				})
 
 				$('#info').modal('show')
@@ -185,7 +185,7 @@
 					$('#edit input[name="nama"]').val(data.nama)
 					$('#edit input[name="alamat"]').val(data.alamat)
 					$('#edit input[name="telepon"]').val(data.telepon)
-					$('#edit textarea[name="catatan"]').val(data.catatan)
+					// $('#edit textarea[name="catatan"]').val(data.catatan)
 				})
 
 				$('#edit').modal('show')

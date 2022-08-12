@@ -113,9 +113,9 @@
             </div>
             
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
-            </div>
+            </div> --}}
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </x-modal>
@@ -177,9 +177,9 @@
             </div>
 
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
-            </div>
+            </div> --}}
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </x-modal>
@@ -210,7 +210,7 @@
                     $('#edit input[name="jumlah"]').val(data.jumlah)
                     $('#edit input[name="harga"]').val(data.harga)
                     $('#edit input[name="tgl_brg_masuk"]').val(data.tgl_brg_masuk)
-                    $('#edit textarea[name="catatan"]').val(data.catatan)
+                    // $('#edit textarea[name="catatan"]').val(data.catatan)
                 })
 
                 $('#edit').modal('show')

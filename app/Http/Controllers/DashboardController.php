@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Supplier, Barang, BarangKeluar, BarangMasuk, Laporan, Gudang};
+use App\Models\{Supplier, Barang, BarangKeluar, BarangMasuk, Laporan, Gudang, Kategori, Proyek,User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Models\Activity;
@@ -19,14 +19,16 @@ class DashboardController extends Controller
     public function index()
     {
         
-                     
-        
         $supplier = Supplier::count();
         $jumlah_barang = Barang::count();
         $barangs=Barang::get();
-        $jumlah_gudang = Gudang::count();
+        // $jumlah_gudang = Gudang::count();
         $data = Laporan::latest()->limit(6)->get();
         $date = date('Y-m-d');
+        $proyek = Proyek::count();
+        $kategori = Kategori::count();
+        $gudang = Gudang::count();
+        $user = User::count();
 
         $barang_masuks = BarangMasuk::count();
         $barang_keluars = BarangKeluar::count();
@@ -61,20 +63,14 @@ class DashboardController extends Controller
          $keluar_des = BarangKeluar::whereMonth('tgl_brg_keluar', '12')->count();
 
 
-
-
-
-        return view('admin.dashboard',
-        compact('supplier', 'barangs', 
-        'jumlah_gudang', 'jumlah_barang', 'data', 'barang_masuks', 'barang_keluars','masuk_jan',
+         return view('admin.dashboard',
+        compact('supplier', 'barangs', 'proyek','user',
+        'gudang', 'jumlah_barang', 'data', 'barang_masuks', 'barang_keluars','masuk_jan','kategori',
         'masuk_feb','masuk_mar','masuk_apr','masuk_mei', 'masuk_jun','masuk_jul','masuk_agu',
         'masuk_sep', 'masuk_okt', 'masuk_nov','masuk_des', 
         'keluar_jan', 'keluar_feb','keluar_mar','keluar_apr','keluar_mei', 'keluar_jun','keluar_jul','keluar_agu',
         'keluar_sep', 'keluar_okt', 'keluar_nov','keluar_des'));
 
-            
-            
-        
     }
 
     /**

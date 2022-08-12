@@ -57,20 +57,23 @@ class BarangMasukController extends Controller
     public function update(BarangMasuk $barang_masuk, BarangMasukRequest $request)
     {
         $result = $barang_masuk->find($request->id);
+        $payload = $request->all();
+        $payload['harga'] = str_replace(",", "", $request->harga);
+
 
         $jumlah = $request->jumlah - $result->jumlah;
 
-        $result->update($request->all());
+        $result->update($payload);
 
         // untuk laporan
-        Laporan::where('jenis', 'Barang Masuk')->where('root_id', $result->id)->update([
-            'nama' => $result->barang->nama,
-            'orang' => $result->supplier->nama,
-            'jumlah' => $request->jumlah,
-            // 'berat' => $request->berat,
-            'harga' => $request->harga,
-            'jenis' => 'Barang Masuk'
-        ]);
+        // Laporan::where('jenis', 'Barang Masuk')->where('root_id', $result->id)->update([
+        //     'nama' => $result->barang->nama,
+        //     'orang' => $result->supplier->nama,
+        //     'jumlah' => $request->jumlah,
+        //     // 'berat' => $request->berat,
+        //     'harga' => $request->harga,
+        //     'jenis' => 'Barang Masuk'
+        // ]);
 
         // untuk barang
         $result->barang->increment('jumlah', $jumlah);
