@@ -32,4 +32,3 @@ Aplikasi ini dilengkapi dengan fitur notifikasi yang akan memudahkan staff admin
 cp .env.example .env <-- edit db config
 composer update
 php artisan key:generate
-php artisan migrate:fresh --seed
