@@ -17,6 +17,7 @@ use App\Http\Controllers\{
 
 Route::redirect('/', '/login');
 
+
 Route::group([
     'middleware' => 'auth',
     'prefix' => 'admin',
@@ -29,18 +30,18 @@ Route::group([
 
     // Settings menu
     Route::view('/settings', 'admin.settings')->name('settings');
-    Route::post('/settings', [DashboardController::class, 'settings_store'])->name('settings');
+    Route::post('/settings', [DashboardController::class, 'settings_store'])->name('settings.create');
 
     // Profile menu
     Route::view('/profile', 'admin.profile')->name('profile');
-    Route::post('/profile', [DashboardController::class, 'profile_update'])->name('profile');
+    Route::post('/profile', [DashboardController::class, 'profile_update'])->name('profile.update');
     Route::post('/profile/upload', [DashboardController::class, 'upload_avatar'])
         ->name('profile.upload');
 
     // Member menu
     Route::get('/petugas', [UserController::class, 'index'])->name('member');
     Route::get('/petugas/create', [UserController::class, 'create'])->name('member.create');
-    Route::post('/petugas/create', [UserController::class, 'store'])->name('member.create');
+    Route::post('/petugas/create', [UserController::class, 'store'])->name('member.store');
     Route::get('/petugas/{id}/edit', [UserController::class, 'edit'])->name('member.edit');
     Route::post('/petugas/{id}/update', [UserController::class, 'update'])->name('member.update');
     Route::post('/petugas/{id}/delete', [UserController::class, 'destroy'])->name('member.delete');
@@ -66,6 +67,7 @@ Route::group([
 
     // Estimator
     Route::get('/proyek', [ProyekController::class, 'index'])->name('proyek.index');
+    Route::get('/proyek/create', [ProyekController::class, 'create'])->name('proyek.create');
     Route::get('/proyek/info', [ProyekController::class, 'info'])->name('proyek.info');
     Route::post('/proyek/store', [ProyekController::class, 'store'])->name('proyek.store');
     Route::post('/proyek/update', [ProyekController::class, 'update'])->name('proyek.update');
@@ -98,6 +100,8 @@ Route::group([
     Route::post('/barang-keluar/update', [BarangKeluarController::class, 'update'])->name('barang-keluar.update');
     Route::get('/barang-keluar/info', [BarangKeluarController::class, 'info'])->name('barang-keluar.info');
     Route::post('/barang-keluar/{id}/destroy', [BarangKeluarController::class, 'destroy'])->name('barang-keluar.destroy');
+    Route::get('/barang-proyek', [BarangKeluarController::class, 'getBarangProyek']);
+    Route::get('/barang-proyek/{id}', [BarangKeluarController::class, 'getDetailBarangProyek']);
 
     // laporan
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');

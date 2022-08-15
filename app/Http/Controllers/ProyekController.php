@@ -94,6 +94,12 @@ class ProyekController extends Controller
         return view('admin.laporan.estimator', compact('data', 'barangs', 'proyeks'), ['payload' => $payload]);
     }
 
+    public function create()
+    {
+        $barangs = Barang::get();
+        return view('admin.proyek.add-proyek', compact('barangs'));
+    }
+
     public function store(Proyek $proyek, Request $request)
     {
         $barang_id = [];
@@ -142,7 +148,7 @@ class ProyekController extends Controller
                 'created_at' => time()
             ]);
 
-        return back()->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('admin.proyek.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     public function info(Proyek $proyek)

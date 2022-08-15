@@ -93,14 +93,23 @@
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
         <script type="text/javascript">
+            // const firebaseConfig = {
+            //     apiKey: "AIzaSyC_BVaU0Dk6mgT0-abwFS0Ccr3696Ms8jc",
+            //     authDomain: "inventoryproject-43df6.firebaseapp.com",
+            //     projectId: "inventoryproject-43df6",
+            //     storageBucket: "inventoryproject-43df6.appspot.com",
+            //     messagingSenderId: "254831582136",
+            //     appId: "1:254831582136:web:9923205ce7440619890d4d"
+            // };
             const firebaseConfig = {
                 apiKey: "AIzaSyC_BVaU0Dk6mgT0-abwFS0Ccr3696Ms8jc",
                 authDomain: "inventoryproject-43df6.firebaseapp.com",
+                databaseURL: "https://inventoryproject-43df6-default-rtdb.firebaseio.com",
                 projectId: "inventoryproject-43df6",
                 storageBucket: "inventoryproject-43df6.appspot.com",
                 messagingSenderId: "254831582136",
                 appId: "1:254831582136:web:9923205ce7440619890d4d"
-            };
+                };
 
             // Initialize Firebase
             const app = firebase.initializeApp(firebaseConfig);

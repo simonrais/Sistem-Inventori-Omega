@@ -21,7 +21,8 @@
                     @endforeach
                 </div>
                 @if (Auth::user()->roles[0]->name == 'Estimator')
-                    <button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah</button>
+                    {{-- <button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah</button> --}}
+                    <a href="{{route('admin.proyek.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</a>
                 @endif
             </div>
         </x-slot>
@@ -34,6 +35,7 @@
                             <th>Estimator</th>
                         @endif
                         <th>Nama Proyek</th>
+                        <th>Tanggal</th>
                         <th>Nama Barang</th>
                         <th>Jumlah Barang</th>
                         @if (Auth::user()->roles[0]->name == 'Estimator')
@@ -51,6 +53,9 @@
                                 <td>{{$payload[$i]['user'] }}</td>
                             @endif
                             <td >{{ $payload[$i]['nama_proyek'] }}</td>
+                            <td>
+                                {{$payload[$i]['created_at'] }}
+                            </td>
                             <td>
                                 <ul>
                                     @foreach ($payload[$i]['barangs'] as $item )
@@ -91,6 +96,16 @@
         </div>
     </x-card>
 
+
+    <style>
+        .overlay th {
+    background-color: #212121;
+    color: white;
+    position: absolute;
+    top:0;
+}
+    </style>
+
     {{-- add model --}}
     <x-modal>
         <x-slot name="title">
@@ -101,36 +116,58 @@
 
         <form action="{{ route('admin.proyek.store') }}" method="post" class="form-group">
             @csrf
-            <div class="form-group">
-                <label for="">Nama Proyek</label>
-                <input type="text" class="form-control" name="nama_proyek" required="">
-                {{-- <select name="nama_proyek" id=""></select> --}}
-            </div>
-            <div class="form-barang">
-                <div class="form-group d-flex">
-                    <div class="col-md-6 pl-0">
+            {{-- <x-slot name="sticky"> --}}
+                <div class="form-group"  >
+                    <label for="">Nama Proyek</label>
+                    <input type="text" class="form-control" name="nama_proyek" required="">
+                    {{-- <select name="nama_proyek" id=""></select> --}}
+                </div>
+            {{-- </x-slot> --}}
+            {{-- <div class="form-barang"> --}}
+                <div class="form-group d-flex" style="position: relative;" >
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Barang</th>
+                                <th>Jumlah Barang</th>
+                            </tr>
+                        </thead>
+                        <tbody class="form-barang">
+                            <tr>
+                                <td>
+                                    <select name="barang_id[]"  data-live-search="true" class="form-control " id="barang_id" required>
+                                        <option value="">--- Pilih Barang ---</option>
+                                        @foreach ($barangs as $row)
+                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                        @endforeach
+                                        </select>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" name="jumlah[]" required>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    {{-- <div class="col-md-6 pl-0">
                         <label for="">Barang</label>
 
-                        <select name="barang_id[]"  data-live-search="true" class="form-control " id="barang_id" required>
-                            <option value="">--- Pilih Barang ---</option>
-                            @foreach ($barangs as $row)
-                            <option value="{{ $row->id }}">{{ $row->nama }}</option>
-                            @endforeach
-                            </select>
                     </div>
 
                     <div class="col-md-6 pr-0">
-                        <label for="">Jumlah Barang</label>
-                        <input type="number" class="form-control" name="jumlah[]" required>
                     </div>
-                    </div>
-            </div>
+                    </div> --}}
+            {{-- </div> --}}
             {{-- <div class="form-group">
                 <label for="">Jumlah Barang</label>
                 <input type="number" class="form-control" name="jumlah" required="">
             </div> --}}
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <button type="button" class="btn btn-info btn-tambah-barang">Tambah barang</button>
+            {{-- <div style="margin-top: 250px"> --}}
+                {{-- <x-slot name="footer"> --}}
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-info btn-tambah-barang">Tambah barang</button>
+                {{-- </x-slot> --}}
+            {{-- </div> --}}
         </form>
     </x-modal>
 
@@ -189,19 +226,20 @@
                             console.log(query);
                             var newQ = `{{`+ query + `}}`
                             $('.form-barang').append(`
-                            <div class="form-group d-flex">
-                                <div class="col-md-6 pl-0">
-                                    <label for="">Barang</label>
-                                    <select name="barang_id[]"  data-live-search="true" class="form-control edit_select_`+value.id+`" id="barang_id">
-                                        <option value="">--- Pilih Barang ---</option>
 
-                                    </select>
-                                </div>
-                                <div class="col-md-6 pr-0">
-                                    <label for="">Jumlah Barang</label>
-                                    <input type="number" class="form-control" value='${data.jumlah[index]}' name="jumlah[]">
-                                </div>
-                            </div>
+                            <tr>
+                                <td>
+                                    <select name="barang_id[]"  data-live-search="true" class="form-control   edit_select_`+value.id+`" id="barang_id" required>
+                                        <option value="">--- Pilih Barang ---</option>
+                                        @foreach ($barangs as $row)
+                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                        @endforeach
+                                        </select>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control"  value='${data.jumlah[index]}' name="jumlah[]" required>
+                                </td>
+                            </tr>
                             `)
 
                             // $('.form-barang #barang_id option[value='+ barId+']').attr('selected', true);
@@ -232,23 +270,19 @@
 
             $('body').on('click', '.btn-tambah-barang', function() {
                     $('.form-barang').append(`
-                    <div class="form-group d-flex">
-                        <div class="col-md-6 pl-0">
-                            <label for="">Barang</label>
-
-                            <select name="barang_id[]"  data-live-search="true" class="form-control " id="barang_id">
-                                <option value="">--- Pilih Barang ---</option>
-                                @foreach ($barangs as $row)
-                                <option value="{{ $row->id }}">{{ $row->nama }}</option>
-                                @endforeach
-                                </select>
-                        </div>
-
-                        <div class="col-md-6 pr-0">
-                            <label for="">Jumlah Barang</label>
-                            <input type="number" class="form-control" name="jumlah[]">
-                        </div>
-                        </div>`)
+                            <tr>
+                                <td>
+                                    <select name="barang_id[]"  data-live-search="true" class="form-control " id="barang_id" required>
+                                        <option value="">--- Pilih Barang ---</option>
+                                        @foreach ($barangs as $row)
+                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                        @endforeach
+                                        </select>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" name="jumlah[]" required>
+                                </td>
+                            </tr>`)
 
             })
 

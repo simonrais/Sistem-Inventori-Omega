@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\{BarangKeluar, Barang, Laporan, Proyek};
 use Illuminate\Http\Request;
 use App\Http\Requests\BarangKeluarRequest;
+use Carbon\Carbon;
+
+use function GuzzleHttp\json_decode;
 
 class BarangKeluarController extends Controller
 {
+    private $database;
     function __construct()
     {
         $this->middleware('permission:barang-keluar', [
-            'only' => ['index','store', 'info', 'update', 'destroy']
+            'only' => ['index', 'store', 'info', 'update', 'destroy']
         ]);
+        $this->database = \App\Services\FirebaseService::connect();
     }
 
     public function index(BarangKeluar $barang_keluar)
@@ -25,11 +30,45 @@ class BarangKeluarController extends Controller
 
     public function store(BarangKeluar $barang_keluar, BarangKeluarRequest $request)
     {
-        $result = $barang_keluar->create($request->all());
 
-        Barang::find($request->barang_id)->decrement('jumlah', $request->jumlah);
-        
-        
+        // UNCOMMENT KODE DIBAWAH JIKA SUDAH DIKOMPILASI
+        if (Barang::find($request->barang_id)->jumlah < $request->jumlah) {
+            dd($request->all());
+            $title = "Pengeluaran barang dari proyek " . Proyek::find($request->proyek_id)->nama_proyek;
+            $this->database
+                ->getReference('notication/proyek/' . $request->id)
+                ->set([
+                    'id' => $request->id,
+                    'title' => $title,
+                    'isRead' => 'no',
+                    'created_at' => time()
+                ]);
+            return back()->with('error', 'Stok barang tidak mencukupi');
+        } else {
+            // dd(date('Y-m-d', strtotime(Proyek::find($request->proyek_id)->created_at)) >= $request->tgl_brg_keluar ? 'true' : 'false');
+            if (date('Y-m-d', strtotime(Proyek::find($request->proyek_id)->created_at)) >= $request->tgl_brg_keluar) {
+                // dd('true');
+                $result = $barang_keluar->create($request->all());
+                $id = $result->id;
+                $title = "Pengeluaran barang dari proyek " . Proyek::find($result->proyek_id)->nama_proyek;
+                Barang::find($request->barang_id)->decrement('jumlah', $request->jumlah);
+                $this->database
+                    ->getReference('notication/proyek/' . $id)
+                    ->set([
+                        'id' => $id,
+                        'title' => $title,
+                        'isRead' => 'no',
+                        'nama_barang' => Barang::find($result->barang_id)->nama,
+                        'jumlah' => $result->jumlah,
+                        'created_at' => time()
+                    ]);
+                return back()->with('success', 'Stok berhasil dikurangi');
+            } else {
+                // dd('test');
+                return back()->with('error', 'Tanggal pengeluaran barang tidak boleh lebih kecil dari tanggal penginputan barang');
+            }
+        }
+
 
         // untuk laporan
         // Laporan::create([
@@ -40,17 +79,34 @@ class BarangKeluarController extends Controller
         //     // 'harga' => $request->harga,
         //     'jenis' => 'Barang Keluar',
         //     'root_id' => $result->id
-        // ]);
 
-        return back()->with('success', 'Stok berhasil dikurangi');
+        // ]);
     }
 
     public function info(BarangKeluar $barang_keluar)
     {
         $data = $barang_keluar->with('barang', 'proyek')->find(request('id'));
-        
 
+        return $data;
+    }
 
+    public function getBarangProyek(Request $request)
+    {
+        $data = Proyek::find($request->id);
+        $barang = json_decode($data->barang_id);
+        $jumlah = json_decode($data->jumlah);
+        $listBarang = [];
+        foreach ($barang as $key => $value) {
+            $listBarang[$key]['id'] = Barang::find($value)->id;
+            $listBarang[$key]['nama'] = Barang::find($value)->nama;
+            $listBarang[$key]['jumlah'] = $jumlah[$key];
+        }
+        return $listBarang;
+    }
+
+    public function getDetailBarangProyek($id)
+    {
+        $data = Barang::find($id);
         return $data;
     }
 

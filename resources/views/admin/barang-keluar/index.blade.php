@@ -3,7 +3,9 @@
 
 	@if(session()->has('success'))
 	<x-alert type="success" message="{{ session()->get('success') }}" />
-	@endif
+    @elseif (session()->has('error'))
+        <x-alert type="danger" message="{{ session()->get('error') }}" />
+    @endif
 
 	<x-card>
 		<x-slot name="title">Semua Barang Keluar</x-slot>
@@ -48,6 +50,7 @@
 		</table>
 		</div>
 	</x-card>
+	{{-- Detail Barang --}}
 
 	{{-- add model --}}
 	<x-modal>
@@ -57,13 +60,16 @@
 		<x-slot name="id">add</x-slot>
 
 
+        <div class="alert-jumlah">
+
+        </div>
 		<form action="{{ route('admin.barang-keluar.store') }}" method="post" class="form-group" >
 			@csrf
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="">Proyek</label>
-						<select name="proyek_id" class="form-control">
+						<select name="proyek_id" id="proyek_id" class="form-control">
 							<option value="">-- Pilih Proyek --</option>
 							@foreach ($proyek as $row)
 								<option value="{{ $row->id }}">{{ $row->nama_proyek }}</option>
@@ -74,7 +80,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="">Barang</label>
-						<select name="barang_id" class="form-control">
+						<select name="barang_id" id="barang" class="form-control">
 							<option value="">-- Pilih Barang --</option>
 							@foreach ($barang as $row)
 								<option value="{{ $row->id }}">{{ $row->nama }}</option>
@@ -87,7 +93,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="">Stok</label>
-						<input type="number" value="0" class="form-control" name="jumlah">
+						<input type="number" value="0" id="jumlah" class="form-control" name="jumlah">
 					</div>
 				</div>
 
@@ -96,7 +102,19 @@
                         <label for="">Tanggal Keluar</label>
                         <input type="date"  class="form-control" name="tgl_brg_keluar">
                     </div>
-            </div>
+                </div>
+                <div class="col-md-4">
+					<div class="form-group">
+						<label for="">List Barang</label>
+						<button class="btn btn-primary list-barang" type="button"><i class="fas fa-list"></i> List Barang</button>
+						<x-slot name="option">
+							{{-- <button class="btn btn-primary add"><i class="fas fa-plus"></i> Tambah Keluaran</button> --}}
+						</x-slot>
+                        {{-- <div id="barang_id">
+
+                        </div> --}}
+                    </div>
+                </div>
 			</div>
 			<div class="form-group">
 				<textarea name="catatan" id="" cols="30" rows="10" class="form-control" placeholder="Catatan"></textarea>
@@ -120,7 +138,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="">Proyek</label>
-						<select name="proyek_id" class="form-control">
+						<select name="proyek_id" id="proyek_id" class="form-control">
 							<option value="">-- Pilih Proyek --</option>
 							@foreach ($proyek as $row)
 								<option value="{{ $row->id }}">{{ $row->nama_proyek }}</option>
@@ -132,10 +150,10 @@
 					<div class="form-group">
 						<label for="">Barang</label>
 						<select name="barang_id" class="form-control">
-							<option value="">-- Pilih Barang --</option>
+							{{-- <option value="">-- Pilih Barang --</option>
 							@foreach ($barang as $row)
 								<option value="{{ $row->id }}">{{ $row->nama }}</option>
-							@endforeach
+							@endforeach --}}
 						</select>
 					</div>
 				</div>
@@ -148,7 +166,7 @@
 					</div>
 				</div>
 
-				
+
 				<div class="col-md-4">
                     <div class="form-group">
                         <label for="">Tanggal Keluar</label>
@@ -163,6 +181,28 @@
 		</form>
 	</x-modal>
 
+    {{-- Modal Barang --}}
+    <x-modal>
+		<x-slot name="title">
+			<h6 class="m-0 font-weight-bold text-primary">Tabel Barang</h6>
+		</x-slot>
+		<x-slot name="id">list-barang</x-slot>
+            <div class="table-responsive">
+                <table class="table" style="width: 100%" id="tbl-barang">
+                    <thead>
+                        <tr>
+                            <th>Nama Barang</th>
+                            <th>Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+
+                    </tbody>
+                </table>
+            </div>
+
+	</x-modal>
+
 
 
 	<x-slot name="script">
@@ -173,6 +213,10 @@
 
 			$('.add').click(function() {
 				$('#add').modal('show')
+			})
+
+			$('.list-barang').click(function() {
+				$('#list-barang').modal('show')
 			})
 
 			$('.edit').click(function() {
@@ -207,6 +251,73 @@
 				})
 
 			})
+
+            $('body').on('change', '#proyek_id', function() {
+                const id = $(this).val()
+                $('#jumlah').val(0)
+                // $('#list-barang').DataTable({
+                //     processing: true,
+                //         serverSide: false,
+                //         ajax:{
+                //             url: '/admin/barang-proyek?id='+id,
+                //             dataSrc: data,
+                //         },
+                //         columns: [
+                //             { data: 'nama' },
+                //             { data: 'jumlah' },
+                //         ]
+
+                //             })
+                $.ajax({
+                    url: '/admin/barang-proyek',
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        localStorage.setItem('barang', JSON.stringify(data))
+                        $('body #barang_id').empty()
+                        $('#tbl-barang').DataTable({
+                            bDestroy: true,
+                            processing: true,
+                            serverSide: false,
+                            data: data,
+                            columns: [
+                                    { data: 'nama' },
+                                    { data: 'jumlah' },
+                                ]
+                        })
+                        // $('body #barang_id').append(`<option value="">-- Pilih Barang --</option>`)
+                        // $.each(data, function(i, item) {
+                        //     // $('#barang_id').append(`<li> ${item.nama} : ${item.jumlah}</li>`)
+
+                        // })
+                    }
+                })
+            })
+
+            $('body').on('input', '#jumlah', function() {
+                var id = $('#barang').val()
+                var data = JSON.parse(localStorage.getItem('barang'))
+                // console.log($(this).val())0
+                var jumlah = $(this).val()
+                // console.log(jumlah)
+                $.each(data, function(i, item) {
+                    // alert('Stok tidak mencukupi => ' + item.id + ' :' + id)
+                    if (item.id == id) {
+                        console.log(item.jumlah < parseInt(jumlah) ? 'true' : 'false' )
+                        $('.alert-jumlah').empty()
+                        // $('#jumlah').val(item.jumlah)
+                        if (item.jumlah < parseInt(jumlah)) {
+                            // alert('Stok tidak mencukupi')
+                            $('.alert-jumlah').append(` <x-alert type="danger" message="Jumlah Melebihi Stok" />`)
+                        }
+                    }
+                })
+            })
+
 
 			$(document).ready(function () {
 		      $('table').DataTable();
