@@ -73,8 +73,9 @@
                             </td>
                             @if (Auth::user()->roles[0]->name == 'Estimator')
                                 <td class="text-center" >
-                                    <button class="btn btn-sm btn-primary edit" data-id="{{ $payload[$i]['id'] }}"><i
-                                            class="fas fa-edit"></i></button>
+                                    {{-- <button class="btn btn-sm btn-primary edit" data-id="{{ $payload[$i]['id'] }}"><i
+                                            class="fas fa-edit"></i></button> --}}
+                                            <a href="{{url('/admin/proyek/info/'. $payload[$i]['id'])}}"  class="btn btn-sm  btn-primary"><i class="fas fa-edit"></i> </a>
                                     <form action="{{ route('admin.proyek.destroy', $payload[$i]['id']) }}"
                                         style="display: inline-block;" method="POST">
                                         @csrf
@@ -204,69 +205,7 @@
                 $('#add').modal('show')
             })
 
-            $('.edit').click(function() {
-                var id = $(this).data('id')
-                $('body #id_proyek').val(id)
 
-                $.ajax({
-                    url: `{{ route('admin.proyek.info') }}?id=${id}`,
-                    type: 'GET',
-                    success: function(data) {
-                        console.log(data);
-                        // console.log(data);
-                        $('.form-barang').html('')
-                        $('#edit input[name="nama_proyek"]').val(data.nama_proyek)
-                        var barId = 0;
-                        $.each(data.barang, function(index, value) {
-                            // console.log(value.id);
-                            barId = value.id;
-                            var string = '$id == "'+ value.id +'" ? "true"   : $id';
-                            console.log(string);
-                            var query = "$row->id == '"+ barId +"' ? selected : ''";
-                            console.log(query);
-                            var newQ = `{{`+ query + `}}`
-                            $('.form-barang').append(`
-
-                            <tr>
-                                <td>
-                                    <select name="barang_id[]"  data-live-search="true" class="form-control   edit_select_`+value.id+`" id="barang_id" required>
-                                        <option value="">--- Pilih Barang ---</option>
-                                        @foreach ($barangs as $row)
-                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
-                                        @endforeach
-                                        </select>
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control"  value='${data.jumlah[index]}' name="jumlah[]" required>
-                                </td>
-                            </tr>
-                            `)
-
-                            // $('.form-barang #barang_id option[value='+ barId+']').attr('selected', true);
-                            $.ajax({
-                                url: '/admin/barang-all',
-                                type: 'GET',
-                                success: function(data) {
-                                    $.each(data, function(k, v) {
-                                        console.log(value.id + ' ' +v.id);
-                                        // if ($('.edit_select_'+barId+'')) {
-                                            $('.edit_select_'+value.id+'')
-                                            .append($("<option></option>")
-                                                .attr("value", v.id)
-                                                .prop('selected', v.id == value.id ? true :false)
-                                                .text(v.nama));
-                                        // }
-                                    })
-                                }
-                            })
-                        })
-                    }
-                })
-
-
-
-                $('#edit').modal('show')
-            })
 
             $('body').on('click', '.btn-tambah-barang', function() {
                     $('.form-barang').append(`

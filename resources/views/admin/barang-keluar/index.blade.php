@@ -192,6 +192,7 @@
                     <thead>
                         <tr>
                             <th>Nama Barang</th>
+                            <th>Keterangan</th>
                             <th>Jumlah</th>
                         </tr>
                     </thead>
@@ -286,6 +287,7 @@
                             data: data,
                             columns: [
                                     { data: 'nama' },
+                                    { data: 'keterangan' },
                                     { data: 'jumlah' },
                                 ]
                         })

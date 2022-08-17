@@ -68,7 +68,8 @@ Route::group([
     // Estimator
     Route::get('/proyek', [ProyekController::class, 'index'])->name('proyek.index');
     Route::get('/proyek/create', [ProyekController::class, 'create'])->name('proyek.create');
-    Route::get('/proyek/info', [ProyekController::class, 'info'])->name('proyek.info');
+    Route::get('/proyek/edit/{id}', [ProyekController::class, 'edit'])->name('proyek.edit');
+    Route::get('/proyek/info/{id}', [ProyekController::class, 'info'])->name('proyek.info');
     Route::post('/proyek/store', [ProyekController::class, 'store'])->name('proyek.store');
     Route::post('/proyek/update', [ProyekController::class, 'update'])->name('proyek.update');
     Route::post('/proyek/{id}/destroy', [ProyekController::class, 'destroy'])->name('proyek.destroy');

@@ -33,7 +33,6 @@ class BarangKeluarController extends Controller
 
         // UNCOMMENT KODE DIBAWAH JIKA SUDAH DIKOMPILASI
         if (Barang::find($request->barang_id)->jumlah < $request->jumlah) {
-            dd($request->all());
             $title = "Pengeluaran barang dari proyek " . Proyek::find($request->proyek_id)->nama_proyek;
             $this->database
                 ->getReference('notication/proyek/' . $request->id)
@@ -45,9 +44,7 @@ class BarangKeluarController extends Controller
                 ]);
             return back()->with('error', 'Stok barang tidak mencukupi');
         } else {
-            // dd(date('Y-m-d', strtotime(Proyek::find($request->proyek_id)->created_at)) >= $request->tgl_brg_keluar ? 'true' : 'false');
             if (date('Y-m-d', strtotime(Proyek::find($request->proyek_id)->created_at)) >= $request->tgl_brg_keluar) {
-                // dd('true');
                 $result = $barang_keluar->create($request->all());
                 $id = $result->id;
                 $title = "Pengeluaran barang dari proyek " . Proyek::find($result->proyek_id)->nama_proyek;
@@ -99,6 +96,7 @@ class BarangKeluarController extends Controller
         foreach ($barang as $key => $value) {
             $listBarang[$key]['id'] = Barang::find($value)->id;
             $listBarang[$key]['nama'] = Barang::find($value)->nama;
+            $listBarang[$key]['keterangan'] = BarangKeluar::where('proyek_id', $request->id)->where('barang_id', $value)->sum('jumlah') != 0 ? 'Barang sudah diambil' : 'Barang belum diambil';
             $listBarang[$key]['jumlah'] = $jumlah[$key];
         }
         return $listBarang;

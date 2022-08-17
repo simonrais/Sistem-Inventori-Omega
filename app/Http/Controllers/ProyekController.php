@@ -100,6 +100,12 @@ class ProyekController extends Controller
         return view('admin.proyek.add-proyek', compact('barangs'));
     }
 
+    // public function edit($id)
+    // {
+    //     // $barangs = Barang::get();
+    //     return view('admin.proyek.edit-proyek', compact('barangs'));
+    // }
+
     public function store(Proyek $proyek, Request $request)
     {
         $barang_id = [];
@@ -151,8 +157,9 @@ class ProyekController extends Controller
         return redirect()->route('admin.proyek.index')->with('success', 'Data berhasil ditambahkan');
     }
 
-    public function info(Proyek $proyek)
+    public function info($id)
     {
+        $proyek = new Proyek();
         // KODE TAMBAHAN
         $data = $proyek->find(request('id'));
         $barang_id = json_decode($data->barang_id, true);
@@ -168,7 +175,10 @@ class ProyekController extends Controller
         $payload['barang'] = $barang;
         $payload['jumlah'] = json_decode($data->jumlah, true);
         $payload['id'] = $data->id;
-        return $payload;
+        // return $payload;
+        $barangs = Barang::get();
+        // dd($payload);
+        return view('admin.proyek.edit-proyek', compact('payload', 'barangs'));
     }
 
     // KODE TAMBAHAN
@@ -180,7 +190,7 @@ class ProyekController extends Controller
         // dd($request);
         $proyek->find($payload['id'])->update($payload);
 
-        return back()->with('success', 'Data berhasil diupdate');
+        return redirect()->route('admin.proyek.index')->with('success', 'Data berhasil diupdate');
     }
 
     public function destroy(Proyek $proyek, $id)
