@@ -44,26 +44,22 @@ class BarangKeluarController extends Controller
                 ]);
             return back()->with('error', 'Stok barang tidak mencukupi');
         } else {
-            if (date('Y-m-d', strtotime(Proyek::find($request->proyek_id)->created_at)) >= $request->tgl_brg_keluar) {
-                $result = $barang_keluar->create($request->all());
-                $id = $result->id;
-                $title = "Pengeluaran barang dari proyek " . Proyek::find($result->proyek_id)->nama_proyek;
-                Barang::find($request->barang_id)->decrement('jumlah', $request->jumlah);
-                $this->database
-                    ->getReference('notication/proyek/' . $id)
-                    ->set([
-                        'id' => $id,
-                        'title' => $title,
-                        'isRead' => 'no',
-                        'nama_barang' => Barang::find($result->barang_id)->nama,
-                        'jumlah' => $result->jumlah,
-                        'created_at' => time()
-                    ]);
-                return back()->with('success', 'Stok berhasil dikurangi');
-            } else {
-                // dd('test');
-                return back()->with('error', 'Tanggal pengeluaran barang tidak boleh lebih kecil dari tanggal penginputan barang');
-            }
+
+            $result = $barang_keluar->create($request->all());
+            $id = $result->id;
+            $title = "Pengeluaran barang dari proyek " . Proyek::find($result->proyek_id)->nama_proyek;
+            Barang::find($request->barang_id)->decrement('jumlah', $request->jumlah);
+            $this->database
+                ->getReference('notication/proyek/' . $id)
+                ->set([
+                    'id' => $id,
+                    'title' => $title,
+                    'isRead' => 'no',
+                    'nama_barang' => Barang::find($result->barang_id)->nama,
+                    'jumlah' => $result->jumlah,
+                    'created_at' => time()
+                ]);
+            return back()->with('success', 'Stok berhasil dikurangi');
         }
 
 

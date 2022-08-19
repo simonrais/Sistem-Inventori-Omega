@@ -157,6 +157,30 @@ class ProyekController extends Controller
         return redirect()->route('admin.proyek.index')->with('success', 'Data berhasil ditambahkan');
     }
 
+    public function edit($id)
+    {
+        $proyek = new Proyek();
+        // KODE TAMBAHAN
+        $data = $proyek->find(request('id'));
+        $barang_id = json_decode($data->barang_id, true);
+        $barang = [];
+        $payload = [];
+        $i = 0;
+        foreach ($barang_id as $value) {
+            $barang[$i] = Barang::find($value);
+            $i++;
+        }
+
+        $payload['nama_proyek'] = $data->nama_proyek;
+        $payload['barang'] = $barang;
+        $payload['jumlah'] = json_decode($data->jumlah, true);
+        $payload['id'] = $data->id;
+        // return $payload;
+        $barangs = Barang::get();
+        // dd($payload);
+        return view('admin.proyek.edit-proyek', compact('payload', 'barangs'));
+    }
+
     public function info($id)
     {
         $proyek = new Proyek();
@@ -179,6 +203,7 @@ class ProyekController extends Controller
         $barangs = Barang::get();
         // dd($payload);
         return view('admin.proyek.edit-proyek', compact('payload', 'barangs'));
+        // return view('admin.proyek.edit-proyek', compact('payload', 'barangs'));
     }
 
     // KODE TAMBAHAN

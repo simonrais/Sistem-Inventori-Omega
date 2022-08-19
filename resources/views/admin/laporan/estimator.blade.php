@@ -163,7 +163,7 @@
                 $('body #id_proyek').val(id)
 
                 $.ajax({
-                    url: `{{ route('admin.proyek.info') }}?id=${id}`,
+                    url: `{{url('admin/proyek/${id}')}}`,
                     type: 'GET',
                     success: function(data) {
                         console.log(data);
