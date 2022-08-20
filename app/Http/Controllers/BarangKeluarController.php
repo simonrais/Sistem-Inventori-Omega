@@ -92,7 +92,7 @@ class BarangKeluarController extends Controller
         foreach ($barang as $key => $value) {
             $listBarang[$key]['id'] = Barang::find($value)->id;
             $listBarang[$key]['nama'] = Barang::find($value)->nama;
-            $listBarang[$key]['keterangan'] = BarangKeluar::where('proyek_id', $request->id)->where('barang_id', $value)->sum('jumlah') != 0 ? 'Barang sudah diambil' : 'Barang belum diambil';
+            $listBarang[$key]['keterangan'] = BarangKeluar::where('proyek_id', $request->id)->where('barang_id', $value)->sum('jumlah') != 0 ? 'Barang sudah diambil : ' . BarangKeluar::where('proyek_id', $request->id)->where('barang_id', $value)->sum('jumlah') : 'Barang belum diambil';
             $listBarang[$key]['jumlah'] = $jumlah[$key];
         }
         return $listBarang;
